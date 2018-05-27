@@ -103,6 +103,7 @@
     <NavigationProperty Name="WorkExperiences" Relationship="Self.FK_WorkExperiences_Employees" FromRole="Employees" ToRole="WorkExperiences" />
     <Property Name="IsDisability" Type="Boolean" />
     <Property Name="IsAboriginal" Type="Boolean" />
+    <NavigationProperty Name="EmployeeStatus1" Relationship="NewEmployeeModel.FK_Employees_EmployeeStatuses" FromRole="Employee" ToRole="EmployeeStatus" />
   </EntityType>
   <EntityType Name="FamilyStatue">
     <Key>
@@ -190,6 +191,7 @@
     <Property Name="EmployeeStatusId" Type="Guid" Nullable="false" />
     <Property Name="Name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
     <NavigationProperty Name="Employee" Relationship="Self.FK_EmployeeStatuses_Employees" FromRole="EmployeeStatuses" ToRole="Employees" />
+    <NavigationProperty Name="Employees" Relationship="NewEmployeeModel.FK_Employees_EmployeeStatuses" FromRole="EmployeeStatus" ToRole="Employee" />
   </EntityType>
   <Association Name="FK_ResidentialAddresses_Cities">
     <End Role="Cities" Type="Self.City" Multiplicity="0..1" />
@@ -431,5 +433,21 @@
       <End Role="Languages" EntitySet="Languages" />
       <End Role="LanguageAblities" EntitySet="LanguageAblities" />
     </AssociationSet>
+    <AssociationSet Name="FK_Employees_EmployeeStatuses" Association="NewEmployeeModel.FK_Employees_EmployeeStatuses">
+      <End Role="EmployeeStatus" EntitySet="EmployeeStatuses" />
+      <End Role="Employee" EntitySet="Employees" />
+    </AssociationSet>
   </EntityContainer>
+  <Association Name="FK_Employees_EmployeeStatuses">
+    <End Type="NewEmployeeModel.EmployeeStatus" Role="EmployeeStatus" Multiplicity="0..1" />
+    <End Type="NewEmployeeModel.Employee" Role="Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeStatus">
+        <PropertyRef Name="EmployeeStatusId" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="EmployeeStatusesId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

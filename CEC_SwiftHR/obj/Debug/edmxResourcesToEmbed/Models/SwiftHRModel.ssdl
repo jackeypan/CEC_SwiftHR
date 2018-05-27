@@ -87,8 +87,6 @@
     <Property Name="IsDisability" Type="bit" />
     <Property Name="IsAboriginal" Type="bit" />
   </EntityType>
-  <!--產生期間發現錯誤:
-警告 6002: 資料表/檢視 'NewEmployee.dbo.EmployeeStatuses' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
   <EntityType Name="EmployeeStatuses">
     <Key>
       <PropertyRef Name="EmployeeStatusId" />
@@ -213,6 +211,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Employees_EmployeeStatuses">
+    <End Role="EmployeeStatuses" Type="Self.EmployeeStatuses" Multiplicity="0..1" />
+    <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeStatuses">
+        <PropertyRef Name="EmployeeStatusId" />
+      </Principal>
+      <Dependent Role="Employees">
+        <PropertyRef Name="EmployeeStatusesId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Employees_PermanentAddresses">
     <End Role="PermanentAddresses" Type="Self.PermanentAddresses" Multiplicity="0..1" />
     <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
@@ -234,18 +244,6 @@
       </Principal>
       <Dependent Role="Employees">
         <PropertyRef Name="ResidentialAddressId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_EmployeeStatuses_Employees">
-    <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
-    <End Role="EmployeeStatuses" Type="Self.EmployeeStatuses" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="Employees">
-        <PropertyRef Name="EmployeeId" />
-      </Principal>
-      <Dependent Role="EmployeeStatuses">
-        <PropertyRef Name="EmployeeStatusId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -341,6 +339,7 @@
     <EntitySet Name="DrivingSkill" EntityType="Self.DrivingSkill" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Educations" EntityType="Self.Educations" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EmployeeStatuses" EntityType="Self.EmployeeStatuses" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="FamilyStatues" EntityType="Self.FamilyStatues" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="LanguageAblities" EntityType="Self.LanguageAblities" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Languages" EntityType="Self.Languages" Schema="dbo" store:Type="Tables" />
@@ -348,12 +347,6 @@
     <EntitySet Name="ResidentialAddresses" EntityType="Self.ResidentialAddresses" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="WorkExperiences" EntityType="Self.WorkExperiences" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="EmployeeStatuses" EntityType="Self.EmployeeStatuses" store:Type="Tables" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [EmployeeStatuses].[EmployeeStatusId] AS [EmployeeStatusId], 
-    [EmployeeStatuses].[Name] AS [Name]
-    FROM [dbo].[EmployeeStatuses] AS [EmployeeStatuses]</DefiningQuery>
-    </EntitySet>
     <AssociationSet Name="FK_ComputerSkills_Employees" Association="Self.FK_ComputerSkills_Employees">
       <End Role="Employees" EntitySet="Employees" />
       <End Role="ComputerSkills" EntitySet="ComputerSkills" />
@@ -370,6 +363,10 @@
       <End Role="Employees" EntitySet="Employees" />
       <End Role="Educations" EntitySet="Educations" />
     </AssociationSet>
+    <AssociationSet Name="FK_Employees_EmployeeStatuses" Association="Self.FK_Employees_EmployeeStatuses">
+      <End Role="EmployeeStatuses" EntitySet="EmployeeStatuses" />
+      <End Role="Employees" EntitySet="Employees" />
+    </AssociationSet>
     <AssociationSet Name="FK_Employees_PermanentAddresses" Association="Self.FK_Employees_PermanentAddresses">
       <End Role="PermanentAddresses" EntitySet="PermanentAddresses" />
       <End Role="Employees" EntitySet="Employees" />
@@ -377,10 +374,6 @@
     <AssociationSet Name="FK_Employees_ResidentialAddresses" Association="Self.FK_Employees_ResidentialAddresses">
       <End Role="ResidentialAddresses" EntitySet="ResidentialAddresses" />
       <End Role="Employees" EntitySet="Employees" />
-    </AssociationSet>
-    <AssociationSet Name="FK_EmployeeStatuses_Employees" Association="Self.FK_EmployeeStatuses_Employees">
-      <End Role="Employees" EntitySet="Employees" />
-      <End Role="EmployeeStatuses" EntitySet="EmployeeStatuses" />
     </AssociationSet>
     <AssociationSet Name="FK_FamilyStatues_Employees" Association="Self.FK_FamilyStatues_Employees">
       <End Role="Employees" EntitySet="Employees" />

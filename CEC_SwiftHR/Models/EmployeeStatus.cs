@@ -14,9 +14,17 @@ namespace CEC_SwiftHR.Models
     
     public partial class EmployeeStatus
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public EmployeeStatus()
+        {
+            this.Employees = new HashSet<Employee>();
+        }
+    
         public System.Guid EmployeeStatusId { get; set; }
         public string Name { get; set; }
     
         public virtual Employee Employee { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Employee> Employees { get; set; }
     }
 }

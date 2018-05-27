@@ -34,6 +34,7 @@
         <AssociationConnector Association="NewEmployeeModel.FK_LanguageAblities_Employees" ManuallyRouted="false" />
         <AssociationConnector Association="NewEmployeeModel.FK_WorkExperiences_Employees" ManuallyRouted="false" />
         <AssociationConnector Association="NewEmployeeModel.FK_LanguageAblities_Languages" ManuallyRouted="false" />
+        <AssociationConnector Association="NewEmployeeModel.FK_Employees_EmployeeStatuses" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
