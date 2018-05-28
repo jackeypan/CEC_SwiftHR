@@ -9,7 +9,7 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
+<table id="EmpTb" class="table table-condensed table-striped table-hover">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.EmployeeName)
@@ -84,88 +84,171 @@
             @Html.DisplayNameFor(model => model.EmployeeStatus1.Name)
         </th>
         <th></th>
+        <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.EmployeeName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EmployeeNameEn)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BirthDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IdCardNum)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Gender)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BloodType)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MobilePhone)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PermanentTel)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ResidentialTel)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Photo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.OnBoardDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EmpId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsMarried)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreateOn)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.HasChild)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NumberOfChild)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ModifiedOn)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsDisability)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsAboriginal)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PermanentAddress.AddressLine)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ResidentialAddress.AddressLine)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EmployeeStatus.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EmployeeStatus1.Name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.EmployeeId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.EmployeeId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.EmployeeId })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployeeName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployeeNameEn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BirthDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdCardNum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BloodType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MobilePhone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PermanentTel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ResidentialTel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Photo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OnBoardDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmpId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsMarried)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateOn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HasChild)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumberOfChild)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModifiedOn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsDisability)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsAboriginal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PermanentAddress.AddressLine)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ResidentialAddress.AddressLine)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployeeStatus.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployeeStatus1.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.EmployeeId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.EmployeeId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.EmployeeId })
+            </td>
+        </tr>
+    }
 
 </table>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+@section scripts{
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript">
+            $(document).ready(function () {
+                $('#EmpTb').dataTable({
+                    "paging": false,
+                    "ordering": false,
+                    "info": false,
+                    "searching": false
+                });
+            });
+        //$(document).ready(function () {
+        //    var eventFired = function (type) {
+        //        var n = $('#demo_info')[0];
+        //        n.innerHTML += '<div>' + type + ' event - ' + new Date().getTime() + '</div>';
+        //        n.scrollTop = n.scrollHeight;
+        //    }
+
+        //    $('#EmpTb')
+        //        .on('order.dt', function () { eventFired('Order'); })
+        //        .on('search.dt', function () { eventFired('Search'); })
+        //        .on('page.dt', function () { eventFired('Page'); })
+        //        .DataTable();
+        //});
+        //var Popup, dataTable;
+        //$(document).ready(function () {
+        //    //$("body").on("click", ".insertbtncss", Insert);
+        //    $('#EmpTb').DataTable({
+        //        "ajax": {
+        //            "url": "/Employees/Index",
+        //            "type": "GET",
+        //            "datatype": "data"
+        //        },
+        //        "columns": [
+        //            { "data": "EmployeeName" },
+        //            { "data": "EmployeeNameEn" },
+        //            { "data": "BirthDate" },
+        //            { "data": "IdCardNum" },
+        //            { "data": "Gender" },
+        //            { "data": "BloodType" },
+        //            { "data": "MobilePhone" },
+        //            { "data": "Email" },
+        //            { "data": "PermanentAddress" },
+        //            { "data": "ResidentialAddress" },
+        //            { "data": "PermanentTel" },
+        //            { "data": "ResidentialTel" },
+        //            { "data": "Photo" },
+        //            { "data": "OnBoardDate" },
+        //            { "data": "EmpID" },
+        //            { "data": "IsMarried" },
+        //            { "data": "CreateOn" },
+        //            { "data": "HasChild" },
+        //            { "data": "NumberOfChild" },
+        //            { "data": "ModifiedOn" },
+        //            { "data": "EmployeeStatuesId" },
+        //            { "data": "IsDisability" },
+        //            { "data": "IsAboriginal" },
+
+        //        ],
+        //        "createdRow": function (row, data, index) {
+        //            var $lnkcode = $("<button class='btn btn-primary'></button>");
+        //            $lnkcode.text("編輯");
+        //            $lnkcode.attr("onclick", "onEdit('" + data.Empid + "')");
+        //            $("td", row).eq(4).text("").append($lnkcode);
+
+        //            var $lnkcode = $("<button class='btn btn-danger'></button>");
+        //            $lnkcode.text("刪除");
+        //            $lnkcode.attr("onclick", "onDelete('" + data.Empid + "')");
+        //            $("td", row).eq(5).text("").append($lnkcode);
+
+        //        },
+        //        "language": {
+        //            "emptyTable": "No Data Found,Please Click on <b>Add New</b> Button"
+        //        }
+        //    });
+        //});
+    </script>
+}

@@ -7,7 +7,7 @@
 <h2>Edit</h2>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Employees", FormMethod.Post, new { @class ="form-horizontal", enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     
