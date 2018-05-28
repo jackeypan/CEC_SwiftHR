@@ -1,0 +1,171 @@
+﻿@model IEnumerable<CEC_SwiftHR.Models.Employee>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.EmployeeName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmployeeNameEn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BirthDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IdCardNum)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Gender)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BloodType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MobilePhone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PermanentTel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ResidentialTel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Photo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OnBoardDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmpId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsMarried)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreateOn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HasChild)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumberOfChild)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ModifiedOn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsDisability)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsAboriginal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PermanentAddress.AddressLine)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ResidentialAddress.AddressLine)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmployeeStatus.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmployeeStatus1.Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmployeeName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmployeeNameEn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BirthDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IdCardNum)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Gender)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BloodType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MobilePhone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PermanentTel)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ResidentialTel)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Photo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OnBoardDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmpId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsMarried)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreateOn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HasChild)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumberOfChild)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ModifiedOn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsDisability)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsAboriginal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PermanentAddress.AddressLine)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ResidentialAddress.AddressLine)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmployeeStatus.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmployeeStatus1.Name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.EmployeeId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.EmployeeId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.EmployeeId })
+        </td>
+    </tr>
+}
+
+</table>
