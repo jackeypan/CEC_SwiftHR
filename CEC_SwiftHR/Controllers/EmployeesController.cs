@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CEC_SwiftHR.Models;
+using CEC_SwiftHR.ViewModel;
 
 namespace CEC_SwiftHR.Controllers
 {
@@ -51,21 +52,42 @@ namespace CEC_SwiftHR.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "EmployeeId,EmployeeName,EmployeeNameEn,BirthDate,IdCardNum,Gender,BloodType,MobilePhone,Email,PermanentAddressId,ResidentialAddressId,PermanentTel,ResidentialTel,Photo,OnBoardDate,EmpId,IsMarried,CreateOn,HasChild,NumberOfChild,ModifiedOn,EmployeeStatusesId,IsDisability,IsAboriginal")] Employee employee)
+        public ActionResult Create([Bind(Include = "EmployeeId,EmployeeName,EmployeeNameEn,BirthDate,IdCardNum,Gender,BloodType,MobilePhone,Email,PermanentAddressId,ResidentialAddressId,PermanentTel,ResidentialTel,Photo,OnBoardDate,EmpId,IsMarried,CreateOn,HasChild,NumberOfChild,ModifiedOn,EmployeeStatusesId,IsDisability,IsAboriginal")] EmployeeViewModel employeeViewModel)
         {
             if (ModelState.IsValid)
             {
-                employee.EmployeeId = Guid.NewGuid();
-                db.Employees.Add(employee);
+                Employee emp = new Employee();
+                emp.EmployeeId = Guid.NewGuid();
+                emp.EmployeeName = employeeViewModel.EmployeeName;
+                emp.EmployeeNameEn = employeeViewModel.EmployeeNameEn;
+                emp.BirthDate = employeeViewModel.BirthDate;
+                emp.IdCardNum = employeeViewModel.IdCardNum;
+                emp.Gender = (int)employeeViewModel.Gender == 1;
+                emp.BloodType = employeeViewModel.BloodType;
+                emp.MobilePhone = employeeViewModel.MobilePhone;
+                emp.Email = employeeViewModel.Email;
+                emp.PermanentAddressId = employeeViewModel.PermanentAddressId;
+                emp.ResidentialAddressId = employeeViewModel.ResidentialAddressId;
+                emp.PermanentTel = employeeViewModel.PermanentTel;
+                emp.ResidentialTel = employeeViewModel.ResidentialTel;
+                emp.Photo = employeeViewModel.Photo;
+                emp.OnBoardDate = employeeViewModel.OnBoardDate;
+                emp.EmpId = employeeViewModel.EmpId;
+                emp.IsMarried = (int)employeeViewModel.IsMarried==1;
+                emp.CreateOn = DateTime.Now;
+                emp.HasChild = (int)employeeViewModel.HasChild==1;
+                emp.ModifiedOn = DateTime.Now;
+                emp.EmployeeStatusesId = db.EmployeeStatuses.Single(x => x.Name == "Active").EmployeeStatusId;
+                emp.IsDisability = (int)employeeViewModel.IsDisability==1;
+                emp.IsAboriginal = (int)employeeViewModel.IsAboriginal==1;
+                db.Employees.Add(emp);
                 db.SaveChanges();
                 return RedirectToAction("Index");
+               
             }
 
-            ViewBag.PermanentAddressId = new SelectList(db.PermanentAddresses, "PermanentAddressId", "AddressLine", employee.PermanentAddressId);
-            ViewBag.ResidentialAddressId = new SelectList(db.ResidentialAddresses, "ResidentialAddressId", "AddressLine", employee.ResidentialAddressId);
-            ViewBag.EmployeeId = new SelectList(db.EmployeeStatuses, "EmployeeStatusId", "Name", employee.EmployeeId);
-            ViewBag.EmployeeStatusesId = new SelectList(db.EmployeeStatuses, "EmployeeStatusId", "Name", employee.EmployeeStatusesId);
-            return View(employee);
+
+            return View(employeeViewModel);
         }
 
         // GET: Employees/Edit/5
