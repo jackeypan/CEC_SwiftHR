@@ -52,10 +52,22 @@ namespace CEC_SwiftHR.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "EmployeeId,EmployeeName,EmployeeNameEn,BirthDate,IdCardNum,Gender,BloodType,MobilePhone,Email,PermanentAddressId,ResidentialAddressId,PermanentTel,ResidentialTel,Photo,OnBoardDate,EmpId,IsMarried,CreateOn,HasChild,NumberOfChild,ModifiedOn,EmployeeStatusesId,IsDisability,IsAboriginal")] EmployeeViewModel employeeViewModel)
+        public ActionResult Create([Bind(Include = "EmployeeId,EmployeeName,EmployeeNameEn,BirthDate,IdCardNum,Gender,BloodType,MobilePhone,Email,PermanentAddressId,ResidentialAddressId,PermanentTel,ResidentialTel,Photo,OnBoardDate,EmpId,IsMarried,CreateOn,HasChild,NumberOfChild,ModifiedOn,EmployeeStatusesId,IsDisability,IsAboriginal")] EmployeeViewModel employeeViewModel,
+            HttpPostedFileBase PhotoPath)
         {
             if (ModelState.IsValid)
             {
+                string strPath = "";
+
+                if (PhotoPath != null)
+                {
+                    int startindex = PhotoPath.ContentType.LastIndexOf('/') + 1;
+                    string filetype = PhotoPath.ContentType.Substring(startindex); //取得副檔名
+                    string newfilename = Guid.NewGuid() + "." + filetype;
+                    strPath = Request.PhysicalApplicationPath + @"images\Employees\" + newfilename;
+                    PhotoPath.SaveAs(strPath);
+                }
+
                 Employee emp = new Employee();
                 emp.EmployeeId = Guid.NewGuid();
                 emp.EmployeeName = employeeViewModel.EmployeeName;
@@ -70,7 +82,7 @@ namespace CEC_SwiftHR.Controllers
                 emp.ResidentialAddressId = employeeViewModel.ResidentialAddressId;
                 emp.PermanentTel = employeeViewModel.PermanentTel;
                 emp.ResidentialTel = employeeViewModel.ResidentialTel;
-                emp.Photo = employeeViewModel.Photo;
+                emp.PhotoPath = strPath;
                 emp.OnBoardDate = employeeViewModel.OnBoardDate;
                 emp.EmpId = employeeViewModel.EmpId;
                 emp.IsMarried = (int)employeeViewModel.IsMarried==1;

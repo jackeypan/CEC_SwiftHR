@@ -68,6 +68,7 @@
     <EntitySetMapping Name="Employees">
       <EntityTypeMapping TypeName="NewEmployeeModel.Employee">
         <MappingFragment StoreEntitySet="Employees">
+          <ScalarProperty Name="PhotoPath" ColumnName="PhotoPath" />
           <ScalarProperty Name="IsAboriginal" ColumnName="IsAboriginal" />
           <ScalarProperty Name="IsDisability" ColumnName="IsDisability" />
           <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />

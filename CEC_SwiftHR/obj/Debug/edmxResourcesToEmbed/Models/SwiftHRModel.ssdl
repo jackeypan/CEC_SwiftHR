@@ -86,6 +86,7 @@
     <Property Name="EmployeeStatusesId" Type="uniqueidentifier" />
     <Property Name="IsDisability" Type="bit" />
     <Property Name="IsAboriginal" Type="bit" />
+    <Property Name="PhotoPath" Type="nvarchar" MaxLength="200" />
   </EntityType>
   <EntityType Name="EmployeeStatuses">
     <Key>

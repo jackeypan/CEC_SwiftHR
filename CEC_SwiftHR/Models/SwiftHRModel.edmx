@@ -91,6 +91,7 @@
           <Property Name="EmployeeStatusesId" Type="uniqueidentifier" />
           <Property Name="IsDisability" Type="bit" />
           <Property Name="IsAboriginal" Type="bit" />
+          <Property Name="PhotoPath" Type="nvarchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="EmployeeStatuses">
           <Key>
@@ -517,6 +518,7 @@
           <Property Name="IsDisability" Type="Boolean" />
           <Property Name="IsAboriginal" Type="Boolean" />
           <NavigationProperty Name="EmployeeStatus1" Relationship="NewEmployeeModel.FK_Employees_EmployeeStatuses" FromRole="Employee" ToRole="EmployeeStatus" />
+          <Property Name="PhotoPath" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="FamilyStatue">
           <Key>
@@ -936,6 +938,7 @@
           <EntitySetMapping Name="Employees">
             <EntityTypeMapping TypeName="NewEmployeeModel.Employee">
               <MappingFragment StoreEntitySet="Employees">
+                <ScalarProperty Name="PhotoPath" ColumnName="PhotoPath" />
                 <ScalarProperty Name="IsAboriginal" ColumnName="IsAboriginal" />
                 <ScalarProperty Name="IsDisability" ColumnName="IsDisability" />
                 <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />

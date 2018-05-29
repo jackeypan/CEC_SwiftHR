@@ -35,7 +35,7 @@ namespace CEC_SwiftHR.ViewModel
         [DisplayName("居住地電話")]
         public string ResidentialTel { get; set; }
         [DisplayName("照片")]
-        public byte[] Photo { get; set; }
+        public string PhotoPath { get; set; }
         [DisplayName("可上班日")]
         public Nullable<System.DateTime> OnBoardDate { get; set; }
         [DisplayName("員工編號")]
