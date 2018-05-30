@@ -3,7 +3,10 @@
 @{
     ViewBag.Title = "Create";
 }
-
+@{
+    IEnumerable<SelectListItem> Cities = ViewBag.City;
+    IEnumerable<SelectListItem> Districts = ViewBag.District;
+}
 <h2>Create</h2>
 
 
@@ -21,7 +24,7 @@
             @Html.LabelFor(model => model.PhotoPath, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.PhotoPath, new { htmlAttributes = new { type = "file", @class = "form-control", name = "uploadFile" } })
-                <img id="photoPreview" style="max-width:150px"/>
+                <img id="photoPreview" style="max-width:150px" />
                 @Html.ValidationMessageFor(model => model.PhotoPath, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -90,21 +93,31 @@
             </div>
         </div>
 
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.PermanentAddressId, "PermanentAddressId", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("PermanentAddressId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.PermanentAddressId, "", new { @class = "text-danger" })
+                @Html.DropDownListFor(model => model.CitySelectedValue, Cities, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.District, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.DistrictSelectedValue, Districts, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.District, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.AddressLine, "AddressLine", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.AddressLine, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.District, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ResidentialAddressId, "ResidentialAddressId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("ResidentialAddressId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ResidentialAddressId, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.ResidentialAddressId, "ResidentialAddressId", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("ResidentialAddressId", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ResidentialAddressId, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
 
         <div class="form-group">
             @Html.LabelFor(model => model.PermanentTel, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -212,6 +225,28 @@
                 reader.readAsDataURL(input.files[0]);
             }
         }
+
+        $("#CitySelectedValue").change(function (event) {
+            var _cityId = event.currentTarget.value;
+            $("#DistrictSelectedValue").empty();
+
+            $.ajax({
+                url: "GetDistrictsByCityId/",
+                data: { cityId: _cityId },
+                cache: false,
+                type: "POST",
+                success: function (data) {
+                    for (var i = 0; i < data.length; i++) {
+                        $("#DistrictSelectedValue").append('<option value="' + data[i].Value + '">' + data[i].Text + '</option>');
+                    }
+
+                },
+                error: function (reponse) {
+                    debugger;
+                    alert("error : " + reponse);
+                }
+            });
+        });
     </script>
 
 }

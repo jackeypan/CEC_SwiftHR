@@ -42,6 +42,8 @@ namespace CEC_SwiftHR.Controllers
         {
             ViewBag.EmployeeId = new SelectList(db.EmployeeStatuses, "EmployeeStatusId", "Name");
             ViewBag.EmployeeStatusesId = new SelectList(db.EmployeeStatuses, "EmployeeStatusId", "Name");
+            ViewBag.City = new SelectList(db.Cities, "CityId", "Name");
+            ViewBag.District = new SelectList(db.Districts, "DistrictId", "Name");
             return View();
         }
 
@@ -50,7 +52,7 @@ namespace CEC_SwiftHR.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "EmployeeId,EmployeeName,EmployeeNameEn,BirthDate,IdCardNum,Gender,BloodType,MobilePhone,Email,PermanentAddressId,ResidentialAddressId,PermanentTel,ResidentialTel,Photo,OnBoardDate,EmpId,IsMarried,CreateOn,HasChild,NumberOfChild,ModifiedOn,EmployeeStatusesId,IsDisability,IsAboriginal")] EmployeeViewModel employeeViewModel,
+        public ActionResult Create([Bind(Include = "EmployeeId,City,CitySelectedValue,District,DistrictSelectedValue,AddressLine,EmployeeName,EmployeeNameEn,BirthDate,IdCardNum,Gender,BloodType,MobilePhone,Email,PermanentAddressId,ResidentialAddressId,PermanentTel,ResidentialTel,Photo,OnBoardDate,EmpId,IsMarried,CreateOn,HasChild,NumberOfChild,ModifiedOn,EmployeeStatusesId,IsDisability,IsAboriginal")] EmployeeViewModel employeeViewModel,
             HttpPostedFileBase PhotoPath)
         {
             if (ModelState.IsValid)
@@ -76,8 +78,6 @@ namespace CEC_SwiftHR.Controllers
                 emp.BloodType = employeeViewModel.BloodType;
                 emp.MobilePhone = employeeViewModel.MobilePhone;
                 emp.Email = employeeViewModel.Email;
-                emp.PermanentAddressId = employeeViewModel.PermanentAddressId;
-                emp.ResidentialAddressId = employeeViewModel.ResidentialAddressId;
                 emp.PermanentTel = employeeViewModel.PermanentTel;
                 emp.ResidentialTel = employeeViewModel.ResidentialTel;
                 emp.PhotoPath = strPath;
@@ -99,6 +99,47 @@ namespace CEC_SwiftHR.Controllers
 
             return View(employeeViewModel);
         }
+
+
+        //Action result for ajax call
+        [HttpPost]
+        public ActionResult GetDistrictsByCityId(Guid cityId)
+        {
+            List<District> districts = districts = GetAllDistrict().Where(m => m.CityId.Equals(cityId)).ToList();
+            SelectList districtsSelectList = new SelectList(districts, "DistrictId", "Name", null);
+            return Json(districtsSelectList);
+        }
+        //collection for city
+        public List<District> GetAllDistrict()
+        {
+            return db.Districts.ToList();
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         // GET: Employees/Edit/5
         public ActionResult Edit(Guid? id)

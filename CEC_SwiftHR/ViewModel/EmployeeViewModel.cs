@@ -1,8 +1,10 @@
-﻿using System;
+﻿using CEC_SwiftHR.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace CEC_SwiftHR.ViewModel
 {
@@ -26,10 +28,15 @@ namespace CEC_SwiftHR.ViewModel
         public string MobilePhone { get; set; }
         [DisplayName("電子郵件")]
         public string Email { get; set; }
-        [DisplayName("戶籍地址")]
-        public Nullable<System.Guid> PermanentAddressId { get; set; }
-        [DisplayName("居住地址")]
-        public Nullable<System.Guid> ResidentialAddressId { get; set; }
+
+        [DisplayName("市")]
+        public City City { get; set; }
+        public string CitySelectedValue { get; set; }
+        [DisplayName("區")]
+        public District District { get; set; }
+        public string DistrictSelectedValue { get; set; }
+        public string AddressLine { get; set; }
+
         [DisplayName("戶籍電話")]
         public string PermanentTel { get; set; }
         [DisplayName("居住地電話")]
@@ -57,6 +64,7 @@ namespace CEC_SwiftHR.ViewModel
         [DisplayName("是否為原住民身分")]
         public IsAboriginal IsAboriginal { get; set; }
     }
+
 
     public enum Gender
     {
