@@ -556,3 +556,5 @@ C:\Users\RohimChou\Documents\GitHub\CEC_SwiftHR_Jackey\CEC_SwiftHR\obj\Debug\CEC
 C:\Users\RohimChou\Documents\GitHub\CEC_SwiftHR_Jackey\CEC_SwiftHR\obj\Debug\CEC_SwiftHR.csproj.CopyComplete
 C:\Users\RohimChou\Documents\GitHub\CEC_SwiftHR_Jackey\CEC_SwiftHR\obj\Debug\CEC_SwiftHR.dll
 C:\Users\RohimChou\Documents\GitHub\CEC_SwiftHR_Jackey\CEC_SwiftHR\obj\Debug\CEC_SwiftHR.pdb
+C:\Users\RohimChou\Documents\GitHub\CEC_SwiftHR_Jackey\CEC_SwiftHR\obj\Debug\CEC_SwiftHR.Properties.Resources.resources
+C:\Users\RohimChou\Documents\GitHub\CEC_SwiftHR_Jackey\CEC_SwiftHR\obj\Debug\CEC_SwiftHR.csproj.GenerateResource.cache
