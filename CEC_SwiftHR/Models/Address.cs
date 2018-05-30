@@ -12,21 +12,25 @@ namespace CEC_SwiftHR.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class PermanentAddress
+    public partial class Address
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PermanentAddress()
+        public Address()
         {
             this.Employees = new HashSet<Employee>();
+            this.Employees1 = new HashSet<Employee>();
         }
     
-        public System.Guid PermanentAddressId { get; set; }
+        public System.Guid AddressId { get; set; }
         public Nullable<System.Guid> CityId { get; set; }
         public Nullable<System.Guid> DistrictId { get; set; }
         public string AddressLine { get; set; }
     
+        public virtual City City { get; set; }
         public virtual District District { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Employee> Employees { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Employee> Employees1 { get; set; }
     }
 }

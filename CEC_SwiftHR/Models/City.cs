@@ -17,13 +17,16 @@ namespace CEC_SwiftHR.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public City()
         {
-            this.ResidentialAddresses = new HashSet<ResidentialAddress>();
+            this.Districts = new HashSet<District>();
+            this.Addresses = new HashSet<Address>();
         }
     
         public System.Guid CityId { get; set; }
         public string Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ResidentialAddress> ResidentialAddresses { get; set; }
+        public virtual ICollection<District> Districts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Address> Addresses { get; set; }
     }
 }

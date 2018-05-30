@@ -15,26 +15,25 @@
         <EntityTypeShape EntityType="NewEmployeeModel.FamilyStatue" Width="1.5" PointX="7.5" PointY="17.25" IsExpanded="true" />
         <EntityTypeShape EntityType="NewEmployeeModel.LanguageAblity" Width="1.5" PointX="10.5" PointY="14.25" IsExpanded="true" />
         <EntityTypeShape EntityType="NewEmployeeModel.Language" Width="1.5" PointX="8.25" PointY="20.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="NewEmployeeModel.PermanentAddress" Width="1.5" PointX="3" PointY="14.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="NewEmployeeModel.ResidentialAddress" Width="1.5" PointX="3" PointY="11.125" IsExpanded="true" />
         <EntityTypeShape EntityType="NewEmployeeModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="NewEmployeeModel.WorkExperience" Width="1.5" PointX="7.5" PointY="23.375" IsExpanded="true" />
         <EntityTypeShape EntityType="NewEmployeeModel.EmployeeStatus" Width="1.5" PointX="7.5" PointY="26.75" IsExpanded="true" />
-        <AssociationConnector Association="NewEmployeeModel.FK_ResidentialAddresses_Cities" ManuallyRouted="false" />
         <AssociationConnector Association="NewEmployeeModel.FK_ComputerSkills_Employees" ManuallyRouted="false" />
         <AssociationConnector Association="NewEmployeeModel.FK_Contact_Employees" ManuallyRouted="false" />
-        <AssociationConnector Association="NewEmployeeModel.FK_PermanentAddresses_Districts" ManuallyRouted="false" />
-        <AssociationConnector Association="NewEmployeeModel.FK_ResidentialAddresses_Districts" ManuallyRouted="false" />
         <AssociationConnector Association="NewEmployeeModel.FK_DrivingSkill_Employees" ManuallyRouted="false" />
         <AssociationConnector Association="NewEmployeeModel.FK_Educations_Employees" ManuallyRouted="false" />
-        <AssociationConnector Association="NewEmployeeModel.FK_Employees_PermanentAddresses" ManuallyRouted="false" />
-        <AssociationConnector Association="NewEmployeeModel.FK_Employees_ResidentialAddresses" ManuallyRouted="false" />
         <AssociationConnector Association="NewEmployeeModel.FK_EmployeeStatuses_Employees" ManuallyRouted="false" />
         <AssociationConnector Association="NewEmployeeModel.FK_FamilyStatues_Employees" ManuallyRouted="false" />
         <AssociationConnector Association="NewEmployeeModel.FK_LanguageAblities_Employees" ManuallyRouted="false" />
         <AssociationConnector Association="NewEmployeeModel.FK_WorkExperiences_Employees" ManuallyRouted="false" />
         <AssociationConnector Association="NewEmployeeModel.FK_LanguageAblities_Languages" ManuallyRouted="false" />
         <AssociationConnector Association="NewEmployeeModel.FK_Employees_EmployeeStatuses" />
+        <AssociationConnector Association="NewEmployeeModel.FK_Districts_Cities" />
+        <EntityTypeShape EntityType="NewEmployeeModel.Address" Width="1.5" PointX="3" PointY="7.875" />
+        <AssociationConnector Association="NewEmployeeModel.FK_Addresses_Cities" />
+        <AssociationConnector Association="NewEmployeeModel.FK_Addresses_Districts" />
+        <AssociationConnector Association="NewEmployeeModel.FK_Employees_Addresses" />
+        <AssociationConnector Association="NewEmployeeModel.FK_Employees_Addresses1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -18,7 +18,7 @@ namespace CEC_SwiftHR.Controllers
         // GET: Employees
         public ActionResult Index()
         {
-            var employees = db.Employees.Include(e => e.PermanentAddress).Include(e => e.ResidentialAddress).Include(e => e.EmployeeStatus).Include(e => e.EmployeeStatus1);
+            var employees = db.Employees.Include(e => e.EmployeeStatus).Include(e => e.EmployeeStatus1);
             return View(employees.ToList());
         }
 
@@ -40,8 +40,6 @@ namespace CEC_SwiftHR.Controllers
         // GET: Employees/Create
         public ActionResult Create()
         {
-            ViewBag.PermanentAddressId = new SelectList(db.PermanentAddresses, "PermanentAddressId", "AddressLine");
-            ViewBag.ResidentialAddressId = new SelectList(db.ResidentialAddresses, "ResidentialAddressId", "AddressLine");
             ViewBag.EmployeeId = new SelectList(db.EmployeeStatuses, "EmployeeStatusId", "Name");
             ViewBag.EmployeeStatusesId = new SelectList(db.EmployeeStatuses, "EmployeeStatusId", "Name");
             return View();
@@ -114,8 +112,8 @@ namespace CEC_SwiftHR.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.PermanentAddressId = new SelectList(db.PermanentAddresses, "PermanentAddressId", "AddressLine", employee.PermanentAddressId);
-            ViewBag.ResidentialAddressId = new SelectList(db.ResidentialAddresses, "ResidentialAddressId", "AddressLine", employee.ResidentialAddressId);
+            //ViewBag.PermanentAddressId = new SelectList(db.PermanentAddresses, "PermanentAddressId", "AddressLine", employee.PermanentAddressId);
+            //ViewBag.ResidentialAddressId = new SelectList(db.ResidentialAddresses, "ResidentialAddressId", "AddressLine", employee.ResidentialAddressId);
             ViewBag.EmployeeId = new SelectList(db.EmployeeStatuses, "EmployeeStatusId", "Name", employee.EmployeeId);
             ViewBag.EmployeeStatusesId = new SelectList(db.EmployeeStatuses, "EmployeeStatusId", "Name", employee.EmployeeStatusesId);
             return View(employee);
@@ -134,8 +132,8 @@ namespace CEC_SwiftHR.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.PermanentAddressId = new SelectList(db.PermanentAddresses, "PermanentAddressId", "AddressLine", employee.PermanentAddressId);
-            ViewBag.ResidentialAddressId = new SelectList(db.ResidentialAddresses, "ResidentialAddressId", "AddressLine", employee.ResidentialAddressId);
+            //ViewBag.PermanentAddressId = new SelectList(db.PermanentAddresses, "PermanentAddressId", "AddressLine", employee.PermanentAddressId);
+            //ViewBag.ResidentialAddressId = new SelectList(db.ResidentialAddresses, "ResidentialAddressId", "AddressLine", employee.ResidentialAddressId);
             ViewBag.EmployeeId = new SelectList(db.EmployeeStatuses, "EmployeeStatusId", "Name", employee.EmployeeId);
             ViewBag.EmployeeStatusesId = new SelectList(db.EmployeeStatuses, "EmployeeStatusId", "Name", employee.EmployeeStatusesId);
             return View(employee);

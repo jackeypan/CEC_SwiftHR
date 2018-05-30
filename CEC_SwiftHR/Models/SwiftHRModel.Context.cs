@@ -35,10 +35,9 @@ namespace CEC_SwiftHR.Models
         public virtual DbSet<FamilyStatue> FamilyStatues { get; set; }
         public virtual DbSet<LanguageAblity> LanguageAblities { get; set; }
         public virtual DbSet<Language> Languages { get; set; }
-        public virtual DbSet<PermanentAddress> PermanentAddresses { get; set; }
-        public virtual DbSet<ResidentialAddress> ResidentialAddresses { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<WorkExperience> WorkExperiences { get; set; }
         public virtual DbSet<EmployeeStatus> EmployeeStatuses { get; set; }
+        public virtual DbSet<Address> Addresses { get; set; }
     }
 }

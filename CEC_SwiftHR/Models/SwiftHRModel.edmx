@@ -5,6 +5,15 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="NewEmployeeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Addresses">
+          <Key>
+            <PropertyRef Name="AddressId" />
+          </Key>
+          <Property Name="AddressId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CityId" Type="uniqueidentifier" />
+          <Property Name="DistrictId" Type="uniqueidentifier" />
+          <Property Name="AddressLine" Type="nvarchar" MaxLength="250" />
+        </EntityType>
         <EntityType Name="Cities">
           <Key>
             <PropertyRef Name="CityId" />
@@ -38,13 +47,14 @@
           </Key>
           <Property Name="DistrictId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Name" Type="nchar" MaxLength="50" />
+          <Property Name="CityId" Type="uniqueidentifier" />
         </EntityType>
         <EntityType Name="DrivingSkill">
           <Key>
             <PropertyRef Name="DrivingSkillId" />
           </Key>
           <Property Name="DrivingSkillId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Name" Type="nchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
           <Property Name="HasLicense" Type="bit" />
           <Property Name="CanDrive" Type="bit" />
           <Property Name="EmployeeId" Type="uniqueidentifier" />
@@ -54,9 +64,9 @@
             <PropertyRef Name="EducationId" />
           </Key>
           <Property Name="EducationId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="SchoolName" Type="nchar" MaxLength="50" />
-          <Property Name="Department" Type="nchar" MaxLength="50" />
-          <Property Name="Degree" Type="nchar" MaxLength="50" />
+          <Property Name="SchoolName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Department" Type="nvarchar" MaxLength="50" />
+          <Property Name="Degree" Type="nvarchar" MaxLength="50" />
           <Property Name="StartDate" Type="date" />
           <Property Name="EndDate" Type="date" />
           <Property Name="IsGraduated" Type="bit" />
@@ -69,13 +79,13 @@
           </Key>
           <Property Name="EmployeeId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="EmployeeName" Type="nvarchar" MaxLength="50" />
-          <Property Name="EmployeeNameEn" Type="nchar" MaxLength="50" />
+          <Property Name="EmployeeNameEn" Type="nvarchar" MaxLength="50" />
           <Property Name="BirthDate" Type="date" />
           <Property Name="IdCardNum" Type="nvarchar" MaxLength="50" />
           <Property Name="Gender" Type="bit" />
-          <Property Name="BloodType" Type="nchar" MaxLength="10" />
-          <Property Name="MobilePhone" Type="nchar" MaxLength="50" />
-          <Property Name="Email" Type="nchar" MaxLength="100" />
+          <Property Name="BloodType" Type="nvarchar" MaxLength="50" />
+          <Property Name="MobilePhone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" />
           <Property Name="PermanentAddressId" Type="uniqueidentifier" />
           <Property Name="ResidentialAddressId" Type="uniqueidentifier" />
           <Property Name="PermanentTel" Type="nchar" MaxLength="50" />
@@ -98,18 +108,18 @@
             <PropertyRef Name="EmployeeStatusId" />
           </Key>
           <Property Name="EmployeeStatusId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Name" Type="nchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="FamilyStatues">
           <Key>
             <PropertyRef Name="FailyStatusId" />
           </Key>
           <Property Name="FailyStatusId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="RelationshipType" Type="nchar" MaxLength="50" />
-          <Property Name="Name" Type="nchar" MaxLength="50" />
+          <Property Name="RelationshipType" Type="nvarchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
           <Property Name="BirthDate" Type="date" />
-          <Property Name="job" Type="nchar" MaxLength="50" />
-          <Property Name="Remark" Type="nchar" MaxLength="250" />
+          <Property Name="job" Type="nvarchar" MaxLength="50" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="250" />
           <Property Name="EmployeeId" Type="uniqueidentifier" />
         </EntityType>
         <EntityType Name="LanguageAblities">
@@ -128,24 +138,6 @@
           <Property Name="LanguageId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Name" Type="nchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="PermanentAddresses">
-          <Key>
-            <PropertyRef Name="PermanentAddressId" />
-          </Key>
-          <Property Name="PermanentAddressId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="CityId" Type="uniqueidentifier" />
-          <Property Name="DistrictId" Type="uniqueidentifier" />
-          <Property Name="AddressLine" Type="char" MaxLength="250" />
-        </EntityType>
-        <EntityType Name="ResidentialAddresses">
-          <Key>
-            <PropertyRef Name="ResidentialAddressId" />
-          </Key>
-          <Property Name="ResidentialAddressId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="CityId" Type="uniqueidentifier" />
-          <Property Name="DistrictId" Type="uniqueidentifier" />
-          <Property Name="AddressLine" Type="nvarchar(max)" />
-        </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -161,16 +153,42 @@
             <PropertyRef Name="WorkExperienceId" />
           </Key>
           <Property Name="WorkExperienceId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="CompanyName" Type="nchar" MaxLength="50" />
-          <Property Name="CompanyDepartment" Type="nchar" MaxLength="50" />
-          <Property Name="Title" Type="nchar" MaxLength="50" />
-          <Property Name="RoleAndResponsibility" Type="nchar" MaxLength="50" />
+          <Property Name="CompanyName" Type="nvarchar" MaxLength="50" />
+          <Property Name="CompanyDepartment" Type="nvarchar" MaxLength="50" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+          <Property Name="RoleAndResponsibility" Type="nvarchar" MaxLength="50" />
           <Property Name="StartDate" Type="date" />
           <Property Name="EndDate" Type="date" />
           <Property Name="EmployeeId" Type="uniqueidentifier" />
         </EntityType>
+        <Association Name="FK_Addresses_Cities">
+          <End Role="Cities" Type="Self.Cities" Multiplicity="0..1" />
+          <End Role="Addresses" Type="Self.Addresses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cities">
+              <PropertyRef Name="CityId" />
+            </Principal>
+            <Dependent Role="Addresses">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Addresses_Districts">
+          <End Role="Districts" Type="Self.Districts" Multiplicity="0..1" />
+          <End Role="Addresses" Type="Self.Addresses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Districts">
+              <PropertyRef Name="DistrictId" />
+            </Principal>
+            <Dependent Role="Addresses">
+              <PropertyRef Name="DistrictId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ComputerSkills_Employees">
-          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="ComputerSkills" Type="Self.ComputerSkills" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Employees">
@@ -193,8 +211,22 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Districts_Cities">
+          <End Role="Cities" Type="Self.Cities" Multiplicity="0..1" />
+          <End Role="Districts" Type="Self.Districts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cities">
+              <PropertyRef Name="CityId" />
+            </Principal>
+            <Dependent Role="Districts">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_DrivingSkill_Employees">
-          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="DrivingSkill" Type="Self.DrivingSkill" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Employees">
@@ -217,6 +249,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Employees_Addresses">
+          <End Role="Addresses" Type="Self.Addresses" Multiplicity="0..1" />
+          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Addresses">
+              <PropertyRef Name="AddressId" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="PermanentAddressId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employees_Addresses1">
+          <End Role="Addresses" Type="Self.Addresses" Multiplicity="0..1" />
+          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Addresses">
+              <PropertyRef Name="AddressId" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="ResidentialAddressId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Employees_EmployeeStatuses">
           <End Role="EmployeeStatuses" Type="Self.EmployeeStatuses" Multiplicity="0..1" />
           <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
@@ -229,32 +285,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Employees_PermanentAddresses">
-          <End Role="PermanentAddresses" Type="Self.PermanentAddresses" Multiplicity="0..1" />
-          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PermanentAddresses">
-              <PropertyRef Name="PermanentAddressId" />
-            </Principal>
-            <Dependent Role="Employees">
-              <PropertyRef Name="PermanentAddressId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Employees_ResidentialAddresses">
-          <End Role="ResidentialAddresses" Type="Self.ResidentialAddresses" Multiplicity="0..1" />
-          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ResidentialAddresses">
-              <PropertyRef Name="ResidentialAddressId" />
-            </Principal>
-            <Dependent Role="Employees">
-              <PropertyRef Name="ResidentialAddressId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_FamilyStatues_Employees">
-          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="FamilyStatues" Type="Self.FamilyStatues" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Employees">
@@ -289,44 +323,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PermanentAddresses_Districts">
-          <End Role="Districts" Type="Self.Districts" Multiplicity="0..1" />
-          <End Role="PermanentAddresses" Type="Self.PermanentAddresses" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Districts">
-              <PropertyRef Name="DistrictId" />
-            </Principal>
-            <Dependent Role="PermanentAddresses">
-              <PropertyRef Name="DistrictId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ResidentialAddresses_Cities">
-          <End Role="Cities" Type="Self.Cities" Multiplicity="0..1" />
-          <End Role="ResidentialAddresses" Type="Self.ResidentialAddresses" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Cities">
-              <PropertyRef Name="CityId" />
-            </Principal>
-            <Dependent Role="ResidentialAddresses">
-              <PropertyRef Name="CityId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ResidentialAddresses_Districts">
-          <End Role="Districts" Type="Self.Districts" Multiplicity="0..1" />
-          <End Role="ResidentialAddresses" Type="Self.ResidentialAddresses" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Districts">
-              <PropertyRef Name="DistrictId" />
-            </Principal>
-            <Dependent Role="ResidentialAddresses">
-              <PropertyRef Name="DistrictId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_WorkExperiences_Employees">
-          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="WorkExperiences" Type="Self.WorkExperiences" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Employees">
@@ -338,6 +338,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="NewEmployeeModelStoreContainer">
+          <EntitySet Name="Addresses" EntityType="Self.Addresses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cities" EntityType="Self.Cities" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ComputerSkills" EntityType="Self.ComputerSkills" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Contact" EntityType="Self.Contact" Schema="dbo" store:Type="Tables" />
@@ -349,10 +350,16 @@
           <EntitySet Name="FamilyStatues" EntityType="Self.FamilyStatues" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LanguageAblities" EntityType="Self.LanguageAblities" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Languages" EntityType="Self.Languages" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="PermanentAddresses" EntityType="Self.PermanentAddresses" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ResidentialAddresses" EntityType="Self.ResidentialAddresses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WorkExperiences" EntityType="Self.WorkExperiences" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Addresses_Cities" Association="Self.FK_Addresses_Cities">
+            <End Role="Cities" EntitySet="Cities" />
+            <End Role="Addresses" EntitySet="Addresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Addresses_Districts" Association="Self.FK_Addresses_Districts">
+            <End Role="Districts" EntitySet="Districts" />
+            <End Role="Addresses" EntitySet="Addresses" />
+          </AssociationSet>
           <AssociationSet Name="FK_ComputerSkills_Employees" Association="Self.FK_ComputerSkills_Employees">
             <End Role="Employees" EntitySet="Employees" />
             <End Role="ComputerSkills" EntitySet="ComputerSkills" />
@@ -360,6 +367,10 @@
           <AssociationSet Name="FK_Contact_Employees" Association="Self.FK_Contact_Employees">
             <End Role="Employees" EntitySet="Employees" />
             <End Role="Contact" EntitySet="Contact" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Districts_Cities" Association="Self.FK_Districts_Cities">
+            <End Role="Cities" EntitySet="Cities" />
+            <End Role="Districts" EntitySet="Districts" />
           </AssociationSet>
           <AssociationSet Name="FK_DrivingSkill_Employees" Association="Self.FK_DrivingSkill_Employees">
             <End Role="Employees" EntitySet="Employees" />
@@ -369,16 +380,16 @@
             <End Role="Employees" EntitySet="Employees" />
             <End Role="Educations" EntitySet="Educations" />
           </AssociationSet>
+          <AssociationSet Name="FK_Employees_Addresses" Association="Self.FK_Employees_Addresses">
+            <End Role="Addresses" EntitySet="Addresses" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employees_Addresses1" Association="Self.FK_Employees_Addresses1">
+            <End Role="Addresses" EntitySet="Addresses" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
           <AssociationSet Name="FK_Employees_EmployeeStatuses" Association="Self.FK_Employees_EmployeeStatuses">
             <End Role="EmployeeStatuses" EntitySet="EmployeeStatuses" />
-            <End Role="Employees" EntitySet="Employees" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Employees_PermanentAddresses" Association="Self.FK_Employees_PermanentAddresses">
-            <End Role="PermanentAddresses" EntitySet="PermanentAddresses" />
-            <End Role="Employees" EntitySet="Employees" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Employees_ResidentialAddresses" Association="Self.FK_Employees_ResidentialAddresses">
-            <End Role="ResidentialAddresses" EntitySet="ResidentialAddresses" />
             <End Role="Employees" EntitySet="Employees" />
           </AssociationSet>
           <AssociationSet Name="FK_FamilyStatues_Employees" Association="Self.FK_FamilyStatues_Employees">
@@ -392,18 +403,6 @@
           <AssociationSet Name="FK_LanguageAblities_Languages" Association="Self.FK_LanguageAblities_Languages">
             <End Role="Languages" EntitySet="Languages" />
             <End Role="LanguageAblities" EntitySet="LanguageAblities" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PermanentAddresses_Districts" Association="Self.FK_PermanentAddresses_Districts">
-            <End Role="Districts" EntitySet="Districts" />
-            <End Role="PermanentAddresses" EntitySet="PermanentAddresses" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ResidentialAddresses_Cities" Association="Self.FK_ResidentialAddresses_Cities">
-            <End Role="Cities" EntitySet="Cities" />
-            <End Role="ResidentialAddresses" EntitySet="ResidentialAddresses" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ResidentialAddresses_Districts" Association="Self.FK_ResidentialAddresses_Districts">
-            <End Role="Districts" EntitySet="Districts" />
-            <End Role="ResidentialAddresses" EntitySet="ResidentialAddresses" />
           </AssociationSet>
           <AssociationSet Name="FK_WorkExperiences_Employees" Association="Self.FK_WorkExperiences_Employees">
             <End Role="Employees" EntitySet="Employees" />
@@ -420,7 +419,8 @@
           </Key>
           <Property Name="CityId" Type="Guid" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="ResidentialAddresses" Relationship="Self.FK_ResidentialAddresses_Cities" FromRole="Cities" ToRole="ResidentialAddresses" />
+          <NavigationProperty Name="Districts" Relationship="NewEmployeeModel.FK_Districts_Cities" FromRole="City" ToRole="District" />
+          <NavigationProperty Name="Addresses" Relationship="NewEmployeeModel.FK_Addresses_Cities" FromRole="City" ToRole="Address" />
         </EntityType>
         <EntityType Name="ComputerSkill">
           <Key>
@@ -450,15 +450,16 @@
           </Key>
           <Property Name="DistrictId" Type="Guid" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="PermanentAddresses" Relationship="Self.FK_PermanentAddresses_Districts" FromRole="Districts" ToRole="PermanentAddresses" />
-          <NavigationProperty Name="ResidentialAddresses" Relationship="Self.FK_ResidentialAddresses_Districts" FromRole="Districts" ToRole="ResidentialAddresses" />
+          <Property Name="CityId" Type="Guid" />
+          <NavigationProperty Name="City" Relationship="NewEmployeeModel.FK_Districts_Cities" FromRole="District" ToRole="City" />
+          <NavigationProperty Name="Addresses" Relationship="NewEmployeeModel.FK_Addresses_Districts" FromRole="District" ToRole="Address" />
         </EntityType>
         <EntityType Name="DrivingSkill">
           <Key>
             <PropertyRef Name="DrivingSkillId" />
           </Key>
           <Property Name="DrivingSkillId" Type="Guid" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="HasLicense" Type="Boolean" />
           <Property Name="CanDrive" Type="Boolean" />
           <Property Name="EmployeeId" Type="Guid" />
@@ -469,9 +470,9 @@
             <PropertyRef Name="EducationId" />
           </Key>
           <Property Name="EducationId" Type="Guid" Nullable="false" />
-          <Property Name="SchoolName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
-          <Property Name="Department" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
-          <Property Name="Degree" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="SchoolName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Department" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Degree" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="StartDate" Type="DateTime" Precision="0" />
           <Property Name="EndDate" Type="DateTime" Precision="0" />
           <Property Name="IsGraduated" Type="Boolean" />
@@ -485,13 +486,13 @@
           </Key>
           <Property Name="EmployeeId" Type="Guid" Nullable="false" />
           <Property Name="EmployeeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="EmployeeNameEn" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="EmployeeNameEn" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="BirthDate" Type="DateTime" Precision="0" />
           <Property Name="IdCardNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Gender" Type="Boolean" />
-          <Property Name="BloodType" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="MobilePhone" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
-          <Property Name="Email" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="BloodType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MobilePhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="PermanentAddressId" Type="Guid" />
           <Property Name="ResidentialAddressId" Type="Guid" />
           <Property Name="PermanentTel" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
@@ -509,8 +510,6 @@
           <NavigationProperty Name="Contacts" Relationship="Self.FK_Contact_Employees" FromRole="Employees" ToRole="Contact" />
           <NavigationProperty Name="DrivingSkills" Relationship="Self.FK_DrivingSkill_Employees" FromRole="Employees" ToRole="DrivingSkill" />
           <NavigationProperty Name="Educations" Relationship="Self.FK_Educations_Employees" FromRole="Employees" ToRole="Educations" />
-          <NavigationProperty Name="PermanentAddress" Relationship="Self.FK_Employees_PermanentAddresses" FromRole="Employees" ToRole="PermanentAddresses" />
-          <NavigationProperty Name="ResidentialAddress" Relationship="Self.FK_Employees_ResidentialAddresses" FromRole="Employees" ToRole="ResidentialAddresses" />
           <NavigationProperty Name="EmployeeStatus" Relationship="Self.FK_EmployeeStatuses_Employees" FromRole="Employees" ToRole="EmployeeStatuses" />
           <NavigationProperty Name="FamilyStatues" Relationship="Self.FK_FamilyStatues_Employees" FromRole="Employees" ToRole="FamilyStatues" />
           <NavigationProperty Name="LanguageAblities" Relationship="Self.FK_LanguageAblities_Employees" FromRole="Employees" ToRole="LanguageAblities" />
@@ -519,17 +518,19 @@
           <Property Name="IsAboriginal" Type="Boolean" />
           <NavigationProperty Name="EmployeeStatus1" Relationship="NewEmployeeModel.FK_Employees_EmployeeStatuses" FromRole="Employee" ToRole="EmployeeStatus" />
           <Property Name="PhotoPath" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Address" Relationship="NewEmployeeModel.FK_Employees_Addresses" FromRole="Employee" ToRole="Address" />
+          <NavigationProperty Name="Address1" Relationship="NewEmployeeModel.FK_Employees_Addresses1" FromRole="Employee" ToRole="Address" />
         </EntityType>
         <EntityType Name="FamilyStatue">
           <Key>
             <PropertyRef Name="FailyStatusId" />
           </Key>
           <Property Name="FailyStatusId" Type="Guid" Nullable="false" />
-          <Property Name="RelationshipType" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="RelationshipType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="BirthDate" Type="DateTime" Precision="0" />
-          <Property Name="job" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
-          <Property Name="Remark" Type="String" MaxLength="250" FixedLength="true" Unicode="true" />
+          <Property Name="job" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Remark" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="EmployeeId" Type="Guid" />
           <NavigationProperty Name="Employee" Relationship="Self.FK_FamilyStatues_Employees" FromRole="FamilyStatues" ToRole="Employees" />
         </EntityType>
@@ -552,29 +553,6 @@
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="LanguageAblities" Relationship="Self.FK_LanguageAblities_Languages" FromRole="Languages" ToRole="LanguageAblities" />
         </EntityType>
-        <EntityType Name="PermanentAddress">
-          <Key>
-            <PropertyRef Name="PermanentAddressId" />
-          </Key>
-          <Property Name="PermanentAddressId" Type="Guid" Nullable="false" />
-          <Property Name="CityId" Type="Guid" />
-          <Property Name="DistrictId" Type="Guid" />
-          <Property Name="AddressLine" Type="String" MaxLength="250" FixedLength="true" Unicode="false" />
-          <NavigationProperty Name="District" Relationship="Self.FK_PermanentAddresses_Districts" FromRole="PermanentAddresses" ToRole="Districts" />
-          <NavigationProperty Name="Employees" Relationship="Self.FK_Employees_PermanentAddresses" FromRole="PermanentAddresses" ToRole="Employees" />
-        </EntityType>
-        <EntityType Name="ResidentialAddress">
-          <Key>
-            <PropertyRef Name="ResidentialAddressId" />
-          </Key>
-          <Property Name="ResidentialAddressId" Type="Guid" Nullable="false" />
-          <Property Name="CityId" Type="Guid" />
-          <Property Name="DistrictId" Type="Guid" />
-          <Property Name="AddressLine" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="City" Relationship="Self.FK_ResidentialAddresses_Cities" FromRole="ResidentialAddresses" ToRole="Cities" />
-          <NavigationProperty Name="District" Relationship="Self.FK_ResidentialAddresses_Districts" FromRole="ResidentialAddresses" ToRole="Districts" />
-          <NavigationProperty Name="Employees" Relationship="Self.FK_Employees_ResidentialAddresses" FromRole="ResidentialAddresses" ToRole="Employees" />
-        </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -590,10 +568,10 @@
             <PropertyRef Name="WorkExperienceId" />
           </Key>
           <Property Name="WorkExperienceId" Type="Guid" Nullable="false" />
-          <Property Name="CompanyName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
-          <Property Name="CompanyDepartment" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
-          <Property Name="Title" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
-          <Property Name="RoleAndResponsibility" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="CompanyName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyDepartment" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RoleAndResponsibility" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="StartDate" Type="DateTime" Precision="0" />
           <Property Name="EndDate" Type="DateTime" Precision="0" />
           <Property Name="EmployeeId" Type="Guid" />
@@ -604,22 +582,10 @@
             <PropertyRef Name="EmployeeStatusId" />
           </Key>
           <Property Name="EmployeeStatusId" Type="Guid" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Employee" Relationship="Self.FK_EmployeeStatuses_Employees" FromRole="EmployeeStatuses" ToRole="Employees" />
           <NavigationProperty Name="Employees" Relationship="NewEmployeeModel.FK_Employees_EmployeeStatuses" FromRole="EmployeeStatus" ToRole="Employee" />
         </EntityType>
-        <Association Name="FK_ResidentialAddresses_Cities">
-          <End Role="Cities" Type="Self.City" Multiplicity="0..1" />
-          <End Role="ResidentialAddresses" Type="Self.ResidentialAddress" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Cities">
-              <PropertyRef Name="CityId" />
-            </Principal>
-            <Dependent Role="ResidentialAddresses">
-              <PropertyRef Name="CityId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ComputerSkills_Employees">
           <End Role="Employees" Type="Self.Employee" Multiplicity="0..1" />
           <End Role="ComputerSkills" Type="Self.ComputerSkill" Multiplicity="*" />
@@ -644,30 +610,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PermanentAddresses_Districts">
-          <End Role="Districts" Type="Self.District" Multiplicity="0..1" />
-          <End Role="PermanentAddresses" Type="Self.PermanentAddress" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Districts">
-              <PropertyRef Name="DistrictId" />
-            </Principal>
-            <Dependent Role="PermanentAddresses">
-              <PropertyRef Name="DistrictId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ResidentialAddresses_Districts">
-          <End Role="Districts" Type="Self.District" Multiplicity="0..1" />
-          <End Role="ResidentialAddresses" Type="Self.ResidentialAddress" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Districts">
-              <PropertyRef Name="DistrictId" />
-            </Principal>
-            <Dependent Role="ResidentialAddresses">
-              <PropertyRef Name="DistrictId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_DrivingSkill_Employees">
           <End Role="Employees" Type="Self.Employee" Multiplicity="0..1" />
           <End Role="DrivingSkill" Type="Self.DrivingSkill" Multiplicity="*" />
@@ -689,30 +631,6 @@
             </Principal>
             <Dependent Role="Educations">
               <PropertyRef Name="EmployeeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Employees_PermanentAddresses">
-          <End Role="PermanentAddresses" Type="Self.PermanentAddress" Multiplicity="0..1" />
-          <End Role="Employees" Type="Self.Employee" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PermanentAddresses">
-              <PropertyRef Name="PermanentAddressId" />
-            </Principal>
-            <Dependent Role="Employees">
-              <PropertyRef Name="PermanentAddressId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Employees_ResidentialAddresses">
-          <End Role="ResidentialAddresses" Type="Self.ResidentialAddress" Multiplicity="0..1" />
-          <End Role="Employees" Type="Self.Employee" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ResidentialAddresses">
-              <PropertyRef Name="ResidentialAddressId" />
-            </Principal>
-            <Dependent Role="Employees">
-              <PropertyRef Name="ResidentialAddressId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -787,15 +705,9 @@
           <EntitySet Name="FamilyStatues" EntityType="Self.FamilyStatue" />
           <EntitySet Name="LanguageAblities" EntityType="Self.LanguageAblity" />
           <EntitySet Name="Languages" EntityType="Self.Language" />
-          <EntitySet Name="PermanentAddresses" EntityType="Self.PermanentAddress" />
-          <EntitySet Name="ResidentialAddresses" EntityType="Self.ResidentialAddress" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="WorkExperiences" EntityType="Self.WorkExperience" />
           <EntitySet Name="EmployeeStatuses" EntityType="Self.EmployeeStatus" />
-          <AssociationSet Name="FK_ResidentialAddresses_Cities" Association="Self.FK_ResidentialAddresses_Cities">
-            <End Role="Cities" EntitySet="Cities" />
-            <End Role="ResidentialAddresses" EntitySet="ResidentialAddresses" />
-          </AssociationSet>
           <AssociationSet Name="FK_ComputerSkills_Employees" Association="Self.FK_ComputerSkills_Employees">
             <End Role="Employees" EntitySet="Employees" />
             <End Role="ComputerSkills" EntitySet="ComputerSkills" />
@@ -804,14 +716,6 @@
             <End Role="Employees" EntitySet="Employees" />
             <End Role="Contact" EntitySet="Contacts" />
           </AssociationSet>
-          <AssociationSet Name="FK_PermanentAddresses_Districts" Association="Self.FK_PermanentAddresses_Districts">
-            <End Role="Districts" EntitySet="Districts" />
-            <End Role="PermanentAddresses" EntitySet="PermanentAddresses" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ResidentialAddresses_Districts" Association="Self.FK_ResidentialAddresses_Districts">
-            <End Role="Districts" EntitySet="Districts" />
-            <End Role="ResidentialAddresses" EntitySet="ResidentialAddresses" />
-          </AssociationSet>
           <AssociationSet Name="FK_DrivingSkill_Employees" Association="Self.FK_DrivingSkill_Employees">
             <End Role="Employees" EntitySet="Employees" />
             <End Role="DrivingSkill" EntitySet="DrivingSkills" />
@@ -819,14 +723,6 @@
           <AssociationSet Name="FK_Educations_Employees" Association="Self.FK_Educations_Employees">
             <End Role="Employees" EntitySet="Employees" />
             <End Role="Educations" EntitySet="Educations" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Employees_PermanentAddresses" Association="Self.FK_Employees_PermanentAddresses">
-            <End Role="PermanentAddresses" EntitySet="PermanentAddresses" />
-            <End Role="Employees" EntitySet="Employees" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Employees_ResidentialAddresses" Association="Self.FK_Employees_ResidentialAddresses">
-            <End Role="ResidentialAddresses" EntitySet="ResidentialAddresses" />
-            <End Role="Employees" EntitySet="Employees" />
           </AssociationSet>
           <AssociationSet Name="FK_EmployeeStatuses_Employees" Association="Self.FK_EmployeeStatuses_Employees">
             <End Role="Employees" EntitySet="Employees" />
@@ -852,6 +748,27 @@
             <End Role="EmployeeStatus" EntitySet="EmployeeStatuses" />
             <End Role="Employee" EntitySet="Employees" />
           </AssociationSet>
+          <AssociationSet Name="FK_Districts_Cities" Association="NewEmployeeModel.FK_Districts_Cities">
+            <End Role="City" EntitySet="Cities" />
+            <End Role="District" EntitySet="Districts" />
+          </AssociationSet>
+          <EntitySet Name="Addresses" EntityType="NewEmployeeModel.Address" />
+          <AssociationSet Name="FK_Addresses_Cities" Association="NewEmployeeModel.FK_Addresses_Cities">
+            <End Role="City" EntitySet="Cities" />
+            <End Role="Address" EntitySet="Addresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Addresses_Districts" Association="NewEmployeeModel.FK_Addresses_Districts">
+            <End Role="District" EntitySet="Districts" />
+            <End Role="Address" EntitySet="Addresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employees_Addresses" Association="NewEmployeeModel.FK_Employees_Addresses">
+            <End Role="Address" EntitySet="Addresses" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employees_Addresses1" Association="NewEmployeeModel.FK_Employees_Addresses1">
+            <End Role="Address" EntitySet="Addresses" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="FK_Employees_EmployeeStatuses">
           <End Type="NewEmployeeModel.EmployeeStatus" Role="EmployeeStatus" Multiplicity="0..1" />
@@ -862,6 +779,79 @@
             </Principal>
             <Dependent Role="Employee">
               <PropertyRef Name="EmployeeStatusesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Districts_Cities">
+          <End Type="NewEmployeeModel.City" Role="City" Multiplicity="0..1" />
+          <End Type="NewEmployeeModel.District" Role="District" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="CityId" />
+            </Principal>
+            <Dependent Role="District">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="AddressId" />
+          </Key>
+          <Property Name="AddressId" Type="Guid" Nullable="false" />
+          <Property Name="CityId" Type="Guid" />
+          <Property Name="DistrictId" Type="Guid" />
+          <Property Name="AddressLine" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="City" Relationship="NewEmployeeModel.FK_Addresses_Cities" FromRole="Address" ToRole="City" />
+          <NavigationProperty Name="District" Relationship="NewEmployeeModel.FK_Addresses_Districts" FromRole="Address" ToRole="District" />
+          <NavigationProperty Name="Employees" Relationship="NewEmployeeModel.FK_Employees_Addresses" FromRole="Address" ToRole="Employee" />
+          <NavigationProperty Name="Employees1" Relationship="NewEmployeeModel.FK_Employees_Addresses1" FromRole="Address" ToRole="Employee" />
+        </EntityType>
+        <Association Name="FK_Addresses_Cities">
+          <End Type="NewEmployeeModel.City" Role="City" Multiplicity="0..1" />
+          <End Type="NewEmployeeModel.Address" Role="Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="CityId" />
+            </Principal>
+            <Dependent Role="Address">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Addresses_Districts">
+          <End Type="NewEmployeeModel.District" Role="District" Multiplicity="0..1" />
+          <End Type="NewEmployeeModel.Address" Role="Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="DistrictId" />
+            </Principal>
+            <Dependent Role="Address">
+              <PropertyRef Name="DistrictId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employees_Addresses">
+          <End Type="NewEmployeeModel.Address" Role="Address" Multiplicity="0..1" />
+          <End Type="NewEmployeeModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="AddressId" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="PermanentAddressId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employees_Addresses1">
+          <End Type="NewEmployeeModel.Address" Role="Address" Multiplicity="0..1" />
+          <End Type="NewEmployeeModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="AddressId" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="ResidentialAddressId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -904,6 +894,7 @@
           <EntitySetMapping Name="Districts">
             <EntityTypeMapping TypeName="NewEmployeeModel.District">
               <MappingFragment StoreEntitySet="Districts">
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
                 <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
@@ -997,26 +988,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="PermanentAddresses">
-            <EntityTypeMapping TypeName="NewEmployeeModel.PermanentAddress">
-              <MappingFragment StoreEntitySet="PermanentAddresses">
-                <ScalarProperty Name="PermanentAddressId" ColumnName="PermanentAddressId" />
-                <ScalarProperty Name="CityId" ColumnName="CityId" />
-                <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
-                <ScalarProperty Name="AddressLine" ColumnName="AddressLine" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ResidentialAddresses">
-            <EntityTypeMapping TypeName="NewEmployeeModel.ResidentialAddress">
-              <MappingFragment StoreEntitySet="ResidentialAddresses">
-                <ScalarProperty Name="ResidentialAddressId" ColumnName="ResidentialAddressId" />
-                <ScalarProperty Name="CityId" ColumnName="CityId" />
-                <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
-                <ScalarProperty Name="AddressLine" ColumnName="AddressLine" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="NewEmployeeModel.sysdiagram">
               <MappingFragment StoreEntitySet="sysdiagrams">
@@ -1047,6 +1018,16 @@
               <MappingFragment StoreEntitySet="EmployeeStatuses">
                 <ScalarProperty Name="EmployeeStatusId" ColumnName="EmployeeStatusId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Addresses">
+            <EntityTypeMapping TypeName="NewEmployeeModel.Address">
+              <MappingFragment StoreEntitySet="Addresses">
+                <ScalarProperty Name="AddressLine" ColumnName="AddressLine" />
+                <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="AddressId" ColumnName="AddressId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

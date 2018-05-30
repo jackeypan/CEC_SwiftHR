@@ -60,8 +60,6 @@ namespace CEC_SwiftHR.Models
         public virtual ICollection<DrivingSkill> DrivingSkills { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Education> Educations { get; set; }
-        public virtual PermanentAddress PermanentAddress { get; set; }
-        public virtual ResidentialAddress ResidentialAddress { get; set; }
         public virtual EmployeeStatus EmployeeStatus { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FamilyStatue> FamilyStatues { get; set; }
@@ -70,5 +68,7 @@ namespace CEC_SwiftHR.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WorkExperience> WorkExperiences { get; set; }
         public virtual EmployeeStatus EmployeeStatus1 { get; set; }
+        public virtual Address Address { get; set; }
+        public virtual Address Address1 { get; set; }
     }
 }

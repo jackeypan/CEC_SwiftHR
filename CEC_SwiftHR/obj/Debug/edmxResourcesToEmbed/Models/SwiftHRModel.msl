@@ -34,6 +34,7 @@
     <EntitySetMapping Name="Districts">
       <EntityTypeMapping TypeName="NewEmployeeModel.District">
         <MappingFragment StoreEntitySet="Districts">
+          <ScalarProperty Name="CityId" ColumnName="CityId" />
           <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
           <ScalarProperty Name="Name" ColumnName="Name" />
         </MappingFragment>
@@ -127,26 +128,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="PermanentAddresses">
-      <EntityTypeMapping TypeName="NewEmployeeModel.PermanentAddress">
-        <MappingFragment StoreEntitySet="PermanentAddresses">
-          <ScalarProperty Name="PermanentAddressId" ColumnName="PermanentAddressId" />
-          <ScalarProperty Name="CityId" ColumnName="CityId" />
-          <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
-          <ScalarProperty Name="AddressLine" ColumnName="AddressLine" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="ResidentialAddresses">
-      <EntityTypeMapping TypeName="NewEmployeeModel.ResidentialAddress">
-        <MappingFragment StoreEntitySet="ResidentialAddresses">
-          <ScalarProperty Name="ResidentialAddressId" ColumnName="ResidentialAddressId" />
-          <ScalarProperty Name="CityId" ColumnName="CityId" />
-          <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
-          <ScalarProperty Name="AddressLine" ColumnName="AddressLine" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="sysdiagrams">
       <EntityTypeMapping TypeName="NewEmployeeModel.sysdiagram">
         <MappingFragment StoreEntitySet="sysdiagrams">
@@ -177,6 +158,16 @@
         <MappingFragment StoreEntitySet="EmployeeStatuses">
           <ScalarProperty Name="EmployeeStatusId" ColumnName="EmployeeStatusId" />
           <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Addresses">
+      <EntityTypeMapping TypeName="NewEmployeeModel.Address">
+        <MappingFragment StoreEntitySet="Addresses">
+          <ScalarProperty Name="AddressLine" ColumnName="AddressLine" />
+          <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
+          <ScalarProperty Name="CityId" ColumnName="CityId" />
+          <ScalarProperty Name="AddressId" ColumnName="AddressId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

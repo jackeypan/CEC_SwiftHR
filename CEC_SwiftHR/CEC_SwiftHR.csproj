@@ -165,6 +165,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Address.cs">
+      <DependentUpon>SwiftHRModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\City.cs">
       <DependentUpon>SwiftHRModel.tt</DependentUpon>
     </Compile>
@@ -196,12 +199,6 @@
       <DependentUpon>SwiftHRModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\LanguageAblity.cs">
-      <DependentUpon>SwiftHRModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PermanentAddress.cs">
-      <DependentUpon>SwiftHRModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ResidentialAddress.cs">
       <DependentUpon>SwiftHRModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SwiftHRModel.Context.cs">
