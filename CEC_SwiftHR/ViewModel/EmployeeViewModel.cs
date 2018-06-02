@@ -37,6 +37,14 @@ namespace CEC_SwiftHR.ViewModel
         public string DistrictSelectedValue { get; set; }
         public string AddressLine { get; set; }
 
+        [DisplayName("市")]
+        public City ResidentialCity { get; set; }
+        public string ResidentialCitySelectedValue { get; set; }
+        [DisplayName("區")]
+        public District ResidentialDistrict { get; set; }
+        public string ResidentialDistrictSelectedValue { get; set; }
+        public string ResidentialAddressLine { get; set; }
+
         [DisplayName("戶籍電話")]
         public string PermanentTel { get; set; }
         [DisplayName("居住地電話")]

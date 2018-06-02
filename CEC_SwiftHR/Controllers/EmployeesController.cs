@@ -77,8 +77,15 @@ namespace CEC_SwiftHR.Controllers
                 address.AddressLine = employeeViewModel.AddressLine;
                 db.Addresses.Add(address);
                 db.SaveChanges();
-
-
+                //Residential Address
+                Address ResidentialAddress = new Address();
+                ResidentialAddress.AddressId = Guid.NewGuid();
+                ResidentialAddress.CityId = Guid.Parse(employeeViewModel.ResidentialCitySelectedValue);
+                ResidentialAddress.DistrictId = Guid.Parse(employeeViewModel.ResidentialDistrictSelectedValue);
+                ResidentialAddress.AddressLine = employeeViewModel.ResidentialAddressLine;
+                db.Addresses.Add(ResidentialAddress);
+                db.SaveChanges();
+                //Employee
                 Employee emp = new Employee();
                 emp.EmployeeId = Guid.NewGuid();
                 emp.EmployeeName = employeeViewModel.EmployeeName;
@@ -89,6 +96,7 @@ namespace CEC_SwiftHR.Controllers
                 emp.BloodType = employeeViewModel.BloodType;
                 emp.MobilePhone = employeeViewModel.MobilePhone;
                 emp.PermanentAddressId = address.AddressId;
+                emp.ResidentialAddressId = ResidentialAddress.AddressId;
                 emp.Email = employeeViewModel.Email;
                 emp.PermanentTel = employeeViewModel.PermanentTel;
                 emp.ResidentialTel = employeeViewModel.ResidentialTel;
