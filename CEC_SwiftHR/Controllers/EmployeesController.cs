@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -52,7 +53,7 @@ namespace CEC_SwiftHR.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "EmployeeId,City,CitySelectedValue,District,DistrictSelectedValue,AddressLine,EmployeeName,EmployeeNameEn,BirthDate,IdCardNum,Gender,BloodType,MobilePhone,Email,PermanentAddressId,ResidentialAddressId,PermanentTel,ResidentialTel,Photo,OnBoardDate,EmpId,IsMarried,CreateOn,HasChild,NumberOfChild,ModifiedOn,EmployeeStatusesId,IsDisability,IsAboriginal")] EmployeeViewModel employeeViewModel,
+        public ActionResult Create(EmployeeViewModel employeeViewModel,
             HttpPostedFileBase PhotoPath)
         {
             if (ModelState.IsValid)
@@ -68,6 +69,16 @@ namespace CEC_SwiftHR.Controllers
                     PhotoPath.SaveAs(strPath);
                 }
 
+                // Address
+                Address address = new Address();
+                address.AddressId = Guid.NewGuid();
+                address.CityId = Guid.Parse(employeeViewModel.CitySelectedValue);
+                address.DistrictId = Guid.Parse(employeeViewModel.DistrictSelectedValue);
+                address.AddressLine = employeeViewModel.AddressLine;
+                db.Addresses.Add(address);
+                db.SaveChanges();
+
+
                 Employee emp = new Employee();
                 emp.EmployeeId = Guid.NewGuid();
                 emp.EmployeeName = employeeViewModel.EmployeeName;
@@ -77,25 +88,25 @@ namespace CEC_SwiftHR.Controllers
                 emp.Gender = (int)employeeViewModel.Gender == 1;
                 emp.BloodType = employeeViewModel.BloodType;
                 emp.MobilePhone = employeeViewModel.MobilePhone;
+                emp.PermanentAddressId = address.AddressId;
                 emp.Email = employeeViewModel.Email;
                 emp.PermanentTel = employeeViewModel.PermanentTel;
                 emp.ResidentialTel = employeeViewModel.ResidentialTel;
                 emp.PhotoPath = strPath;
                 emp.OnBoardDate = employeeViewModel.OnBoardDate;
                 emp.EmpId = employeeViewModel.EmpId;
-                emp.IsMarried = (int)employeeViewModel.IsMarried==1;
+                emp.IsMarried = (int)employeeViewModel.IsMarried == 1;
                 emp.CreateOn = DateTime.Now;
-                emp.HasChild = (int)employeeViewModel.HasChild==1;
+                emp.HasChild = (int)employeeViewModel.HasChild == 1;
                 emp.ModifiedOn = DateTime.Now;
                 emp.EmployeeStatusesId = db.EmployeeStatuses.Single(x => x.Name == "Active").EmployeeStatusId;
-                emp.IsDisability = (int)employeeViewModel.IsDisability==1;
-                emp.IsAboriginal = (int)employeeViewModel.IsAboriginal==1;
+                emp.IsDisability = (int)employeeViewModel.IsDisability == 1;
+                emp.IsAboriginal = (int)employeeViewModel.IsAboriginal == 1;
                 db.Employees.Add(emp);
                 db.SaveChanges();
                 return RedirectToAction("Index");
-               
-            }
 
+            }
 
             return View(employeeViewModel);
         }
