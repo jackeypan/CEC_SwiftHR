@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title-CECHR</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Styles.Render("~/Content/jqueryui")
+    @Scripts.Render("~/bundles/jqueryui")
+</head>
+<body>
+    <h1 style="text-align:center">新進人員填表</h1>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="btn-group btn-group-lg" role="group">
+                    @Html.ActionLink("新進人員總表", "Index", "Employees", null, new { @class = "btn btn-secondary" })
+                 
+                    @Html.ActionLink("填表表單", "Create", "Employees", null, new { @class = "btn btn-secondary" })
+                </div>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+    <div class="panel-footer">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year</p>
+        </footer>
+    </div>
+
+
+    <script type="text/javascript">
+    $(document).ready(function () {
+        $(".datepicker").datepicker({
+            dateFormat: "yy-mm-dd"
+        });
+    });
+    </script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -8,7 +8,6 @@
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/jqueryui")
 
-
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
     <link href="~/Content/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
@@ -182,7 +181,7 @@
                 <!-- BEGIN CONTENT BODY -->
                 <div class="page-content">
                     <!-- BEGIN PAGE HEADER-->
-            @RenderBody()
+               @RenderBody()
 
                 </div>
                 <!-- END CONTENT BODY -->
@@ -232,6 +231,5 @@
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jqueryui")
     @RenderSection("scripts", required: false)
-    
 </body>
 </html>
