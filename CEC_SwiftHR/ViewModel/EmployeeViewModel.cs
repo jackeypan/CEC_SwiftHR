@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -17,6 +18,8 @@ namespace CEC_SwiftHR.ViewModel
         [DisplayName("英文姓名")]
         public string EmployeeNameEn { get; set; }
         [DisplayName("生日")]
+        //[DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:d}")]
         public Nullable<System.DateTime> BirthDate { get; set; }
         [DisplayName("身分證字號")]
         public string IdCardNum { get; set; }

@@ -34,7 +34,7 @@
                             <span></span>
                         </label>
                     </td>
-                    <td> @Html.DisplayFor(modelitem => emp.EmpId)  </td>
+                    <td> <a href="@Url.Action("edit","Employees", new { id = emp.EmployeeId })">@Html.DisplayFor(modelitem => emp.EmpId)</a>  </td>
                     <td>
                         @Html.DisplayFor(modelitem => emp.EmployeeName)
                     </td>

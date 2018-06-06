@@ -59,12 +59,12 @@ namespace CEC_SwiftHR.Controllers
             if (ModelState.IsValid)
             {
                 string strPath = "";
-
+                string newfilename = "";
                 if (PhotoPath != null)
                 {
                     int startindex = PhotoPath.ContentType.LastIndexOf('/') + 1;
                     string filetype = PhotoPath.ContentType.Substring(startindex); //取得副檔名
-                    string newfilename = Guid.NewGuid() + "." + filetype;
+                    newfilename = Guid.NewGuid() + "." + filetype;
                     strPath = Request.PhysicalApplicationPath + @"images\Employees\" + newfilename;
                     PhotoPath.SaveAs(strPath);
                 }
@@ -100,7 +100,7 @@ namespace CEC_SwiftHR.Controllers
                 emp.Email = employeeViewModel.Email;
                 emp.PermanentTel = employeeViewModel.PermanentTel;
                 emp.ResidentialTel = employeeViewModel.ResidentialTel;
-                emp.PhotoPath = strPath;
+                emp.PhotoPath = newfilename;
                 emp.OnBoardDate = employeeViewModel.OnBoardDate;
                 emp.EmpId = employeeViewModel.EmpId;
                 emp.IsMarried = (int)employeeViewModel.IsMarried == 1;
@@ -172,11 +172,34 @@ namespace CEC_SwiftHR.Controllers
             {
                 return HttpNotFound();
             }
-            //ViewBag.PermanentAddressId = new SelectList(db.PermanentAddresses, "PermanentAddressId", "AddressLine", employee.PermanentAddressId);
-            //ViewBag.ResidentialAddressId = new SelectList(db.ResidentialAddresses, "ResidentialAddressId", "AddressLine", employee.ResidentialAddressId);
-            ViewBag.EmployeeId = new SelectList(db.EmployeeStatuses, "EmployeeStatusId", "Name", employee.EmployeeId);
-            ViewBag.EmployeeStatusesId = new SelectList(db.EmployeeStatuses, "EmployeeStatusId", "Name", employee.EmployeeStatusesId);
-            return View(employee);
+
+
+            //Address address = new Address();
+            //address.AddressId = Guid.NewGuid();
+            //address.CityId = Guid.Parse(employeeViewModel.CitySelectedValue);
+            //address.DistrictId = Guid.Parse(employeeViewModel.DistrictSelectedValue);
+            //address.AddressLine = employeeViewModel.AddressLine;
+            //db.Addresses.Add(address);
+
+            EmployeeViewModel empViewModel = new EmployeeViewModel();
+            empViewModel.EmployeeId = employee.EmployeeId;
+            empViewModel.PhotoPath = employee.PhotoPath;
+            empViewModel.EmployeeName = employee.EmployeeName;
+            empViewModel.EmployeeNameEn = employee.EmployeeNameEn;
+            empViewModel.BirthDate = employee.BirthDate;
+            empViewModel.Gender = employee.Gender == true ? Gender.男 : Gender.女 ;
+            var permenentAddress = db.Addresses.Find(employee.PermanentAddressId);
+            empViewModel.CitySelectedValue = permenentAddress.CityId.ToString();
+            empViewModel.DistrictSelectedValue = permenentAddress.DistrictId.ToString();
+            empViewModel.AddressLine = permenentAddress.AddressLine;
+            var residentialAddress = db.Addresses.Find(employee.ResidentialAddressId);
+            empViewModel.ResidentialCitySelectedValue = residentialAddress.CityId.ToString();
+            empViewModel.ResidentialDistrictSelectedValue = residentialAddress.DistrictId.ToString();
+            empViewModel.ResidentialAddressLine = residentialAddress.AddressLine;
+
+            ViewBag.City = new SelectList(db.Cities, "CityId", "Name");
+            ViewBag.District = new SelectList(db.Districts, "DistrictId", "Name");
+            return View(empViewModel);
         }
 
         // POST: Employees/Edit/5
@@ -184,19 +207,75 @@ namespace CEC_SwiftHR.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "EmployeeId,EmployeeName,EmployeeNameEn,BirthDate,IdCardNum,Gender,BloodType,MobilePhone,Email,PermanentAddressId,ResidentialAddressId,PermanentTel,ResidentialTel,Photo,OnBoardDate,EmpId,IsMarried,CreateOn,HasChild,NumberOfChild,ModifiedOn,EmployeeStatusesId,IsDisability,IsAboriginal")] Employee employee)
+        public ActionResult Edit(EmployeeViewModel employeeViewModel,
+            HttpPostedFileBase PhotoPath)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(employee).State = EntityState.Modified;
+                Employee emp = db.Employees.Find(employeeViewModel.EmployeeId);
+                string strPath = "";
+                string newfilename = "";
+                if (PhotoPath != null)
+                {
+                    int startindex = PhotoPath.ContentType.LastIndexOf('/') + 1;
+                    string filetype = PhotoPath.ContentType.Substring(startindex); //取得副檔名
+                    newfilename = Guid.NewGuid() + "." + filetype;
+                    strPath = Request.PhysicalApplicationPath + @"images\Employees\" + newfilename;
+                    PhotoPath.SaveAs(strPath);
+                    emp.PhotoPath = newfilename;
+                }
+
+                emp.EmployeeName = employeeViewModel.EmployeeName;
+                emp.Gender = (int)employeeViewModel.Gender == 1;
+                emp.BirthDate = employeeViewModel.BirthDate;
+
+
+                // Address
+                Address address = db.Addresses.Find(emp.PermanentAddressId);
+                address.CityId = Guid.Parse(employeeViewModel.CitySelectedValue);
+                address.DistrictId = Guid.Parse(employeeViewModel.DistrictSelectedValue);
+                address.AddressLine = employeeViewModel.AddressLine;
+                //Residential Address
+                Address ResidentialAddress = db.Addresses.Find(emp.ResidentialAddressId);
+                ResidentialAddress.CityId = Guid.Parse(employeeViewModel.ResidentialCitySelectedValue);
+                ResidentialAddress.DistrictId = Guid.Parse(employeeViewModel.ResidentialDistrictSelectedValue);
+                ResidentialAddress.AddressLine = employeeViewModel.ResidentialAddressLine;
+
+
                 db.SaveChanges();
+
+
+                //Employee
+                //emp.EmployeeId = Guid.NewGuid();
+                //emp.EmployeeName = employeeViewModel.EmployeeName;
+                //emp.EmployeeNameEn = employeeViewModel.EmployeeNameEn;
+                //emp.BirthDate = employeeViewModel.BirthDate;
+                //emp.IdCardNum = employeeViewModel.IdCardNum;
+                //emp.Gender = (int)employeeViewModel.Gender == 1;
+                //emp.BloodType = employeeViewModel.BloodType;
+                //emp.MobilePhone = employeeViewModel.MobilePhone;
+                //emp.PermanentAddressId = address.AddressId;
+                //emp.ResidentialAddressId = ResidentialAddress.AddressId;
+                //emp.Email = employeeViewModel.Email;
+                //emp.PermanentTel = employeeViewModel.PermanentTel;
+                //emp.ResidentialTel = employeeViewModel.ResidentialTel;
+                //emp.PhotoPath = newfilename;
+                //emp.OnBoardDate = employeeViewModel.OnBoardDate;
+                //emp.EmpId = employeeViewModel.EmpId;
+                //emp.IsMarried = (int)employeeViewModel.IsMarried == 1;
+                //emp.CreateOn = DateTime.Now;
+                //emp.HasChild = (int)employeeViewModel.HasChild == 1;
+                //emp.ModifiedOn = DateTime.Now;
+                //emp.EmployeeStatusesId = db.EmployeeStatuses.Single(x => x.Name == "Active").EmployeeStatusId;
+                //emp.IsDisability = (int)employeeViewModel.IsDisability == 1;
+                //emp.IsAboriginal = (int)employeeViewModel.IsAboriginal == 1;
+                //db.Employees.Add(emp);
+                //db.SaveChanges();
                 return RedirectToAction("Index");
+
             }
-            //ViewBag.PermanentAddressId = new SelectList(db.PermanentAddresses, "PermanentAddressId", "AddressLine", employee.PermanentAddressId);
-            //ViewBag.ResidentialAddressId = new SelectList(db.ResidentialAddresses, "ResidentialAddressId", "AddressLine", employee.ResidentialAddressId);
-            ViewBag.EmployeeId = new SelectList(db.EmployeeStatuses, "EmployeeStatusId", "Name", employee.EmployeeId);
-            ViewBag.EmployeeStatusesId = new SelectList(db.EmployeeStatuses, "EmployeeStatusId", "Name", employee.EmployeeStatusesId);
-            return View(employee);
+
+            return View(employeeViewModel);
         }
 
         // GET: Employees/Delete/5

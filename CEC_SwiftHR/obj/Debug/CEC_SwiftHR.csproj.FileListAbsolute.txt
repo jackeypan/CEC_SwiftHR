@@ -673,3 +673,4 @@ C:\Users\User\Documents\GitHub\CEC_SwiftHR\CEC_SwiftHR\obj\Debug\CEC_SwiftHR.csp
 C:\Users\User\Documents\GitHub\CEC_SwiftHR\CEC_SwiftHR\obj\Debug\CEC_SwiftHR.csproj.CopyComplete
 C:\Users\User\Documents\GitHub\CEC_SwiftHR\CEC_SwiftHR\obj\Debug\CEC_SwiftHR.dll
 C:\Users\User\Documents\GitHub\CEC_SwiftHR\CEC_SwiftHR\obj\Debug\CEC_SwiftHR.pdb
+C:\Users\User\Documents\GitHub\CEC_SwiftHR\CEC_SwiftHR\obj\Debug\CEC_SwiftHR.Resources.Language.resources
