@@ -295,12 +295,26 @@ namespace CEC_SwiftHR.Controllers
 
         // POST: Employees/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(Guid id)
         {
             Employee employee = db.Employees.Find(id);
             db.Employees.Remove(employee);
             db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        // POST: Employees/Delete/5
+        [HttpPost, ActionName("Deletes")]
+        public ActionResult DeletesConfirmed(List<Guid> ids)
+        {
+            foreach (var item in ids)
+            {
+                Employee emp = db.Employees.Find(item);
+                db.Employees.Remove(emp);
+                db.SaveChanges();
+               
+
+            }
             return RedirectToAction("Index");
         }
 

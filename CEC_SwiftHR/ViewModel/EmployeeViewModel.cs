@@ -18,8 +18,7 @@ namespace CEC_SwiftHR.ViewModel
         [DisplayName("英文姓名")]
         public string EmployeeNameEn { get; set; }
         [DisplayName("生日")]
-        //[DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:d}")]
+        [DataType(DataType.Date)]
         public Nullable<System.DateTime> BirthDate { get; set; }
         [DisplayName("身分證字號")]
         public string IdCardNum { get; set; }
@@ -57,6 +56,7 @@ namespace CEC_SwiftHR.ViewModel
         [DisplayName("可上班日")]
         public Nullable<System.DateTime> OnBoardDate { get; set; }
         [DisplayName("員工編號")]
+        [Required(ErrorMessage = "請輸入員工編號")]
         public string EmpId { get; set; }
         [DisplayName("是否結婚")]
         public IsMarried IsMarried { get; set; }
