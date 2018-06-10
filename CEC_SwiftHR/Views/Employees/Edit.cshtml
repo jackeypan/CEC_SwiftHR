@@ -255,13 +255,34 @@
             $("#DistrictSelectedValue").empty();
 
             $.ajax({
-                url: "GetDistrictsByCityId/",
+                url:"@Url.Action("GetDistrictsByCityId", "Employees")",
                 data: { cityId: _cityId },
                 cache: false,
                 type: "POST",
                 success: function (data) {
                     for (var i = 0; i < data.length; i++) {
                         $("#DistrictSelectedValue").append('<option value="' + data[i].Value + '">' + data[i].Text + '</option>');
+                    }
+
+                },
+                error: function (reponse) {
+                    debugger;
+                    alert("error : " + reponse);
+                }
+            });
+        });
+        $("#ResidentialCitySelectedValue").change(function (event) {
+            var _cityId = event.currentTarget.value;
+            $("#ResidentialDistrictSelectedValue").empty();
+
+            $.ajax({
+                url: "@Url.Action("GetDistrictsByCityId","Employees")",
+                data: { cityId: _cityId },
+                cache: false,
+                type: "POST",
+                success: function (data) {
+                    for (var i = 0; i < data.length; i++) {
+                        $("#ResidentialDistrictSelectedValue").append('<option value="' + data[i].Value + '">' + data[i].Text + '</option>');
                     }
 
                 },
