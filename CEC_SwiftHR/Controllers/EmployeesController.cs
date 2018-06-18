@@ -14,11 +14,16 @@ namespace CEC_SwiftHR.Controllers
 {
     public class EmployeesController : Controller
     {
+        
         private NewEmployeeEntities db = new NewEmployeeEntities();
 
         // GET: Employees
         public ActionResult Index()
         {
+            if (Session["Login"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             var employees = db.Employees.Include(e => e.EmployeeStatus).Include(e => e.EmployeeStatus1);
             return View(employees.ToList());
         }
@@ -41,6 +46,10 @@ namespace CEC_SwiftHR.Controllers
         // GET: Employees/Create
         public ActionResult Create()
         {
+            if (Session["Login"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             ViewBag.EmployeeId = new SelectList(db.EmployeeStatuses, "EmployeeStatusId", "Name");
             ViewBag.EmployeeStatusesId = new SelectList(db.EmployeeStatuses, "EmployeeStatusId", "Name");
             ViewBag.City = new SelectList(db.Cities, "CityId", "Name");
@@ -56,6 +65,10 @@ namespace CEC_SwiftHR.Controllers
         public ActionResult Create(EmployeeViewModel employeeViewModel,
             HttpPostedFileBase PhotoPath)
         {
+            if (Session["Login"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             if (ModelState.IsValid)
             {
                 string strPath = "";
@@ -163,6 +176,10 @@ namespace CEC_SwiftHR.Controllers
         // GET: Employees/Edit/5
         public ActionResult Edit(Guid? id)
         {
+            if (Session["Login"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -210,6 +227,10 @@ namespace CEC_SwiftHR.Controllers
         public ActionResult Edit(EmployeeViewModel employeeViewModel,
             HttpPostedFileBase PhotoPath)
         {
+            if (Session["Login"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             if (ModelState.IsValid)
             {
                 Employee emp = db.Employees.Find(employeeViewModel.EmployeeId);
@@ -281,6 +302,10 @@ namespace CEC_SwiftHR.Controllers
         // GET: Employees/Delete/5
         public ActionResult Delete(Guid? id)
         {
+            if (Session["Login"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -297,6 +322,10 @@ namespace CEC_SwiftHR.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(Guid id)
         {
+            if (Session["Login"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             Employee employee = db.Employees.Find(id);
             db.Employees.Remove(employee);
             db.SaveChanges();
@@ -307,6 +336,10 @@ namespace CEC_SwiftHR.Controllers
         [HttpPost, ActionName("Deletes")]
         public ActionResult DeletesConfirmed(List<Guid> ids)
         {
+            if (Session["Login"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             foreach (var item in ids)
             {
                 Employee emp = db.Employees.Find(item);
@@ -320,6 +353,7 @@ namespace CEC_SwiftHR.Controllers
 
         protected override void Dispose(bool disposing)
         {
+      
             if (disposing)
             {
                 db.Dispose();

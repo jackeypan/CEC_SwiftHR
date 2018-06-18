@@ -14,7 +14,7 @@
       <PropertyRef Name="CityId" />
     </Key>
     <Property Name="CityId" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="Name" Type="nchar" MaxLength="50" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="ComputerSkills">
     <Key>
@@ -41,7 +41,7 @@
       <PropertyRef Name="DistrictId" />
     </Key>
     <Property Name="DistrictId" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="Name" Type="nchar" MaxLength="50" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
     <Property Name="CityId" Type="uniqueidentifier" />
   </EntityType>
   <EntityType Name="DrivingSkill">
@@ -132,6 +132,14 @@
     </Key>
     <Property Name="LanguageId" Type="uniqueidentifier" Nullable="false" />
     <Property Name="Name" Type="nchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Login">
+    <Key>
+      <PropertyRef Name="LoginId" />
+    </Key>
+    <Property Name="LoginId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Username" Type="nvarchar" MaxLength="50" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>
@@ -345,6 +353,7 @@
     <EntitySet Name="FamilyStatues" EntityType="Self.FamilyStatues" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="LanguageAblities" EntityType="Self.LanguageAblities" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Languages" EntityType="Self.Languages" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Login" EntityType="Self.Login" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="WorkExperiences" EntityType="Self.WorkExperiences" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_Addresses_Cities" Association="Self.FK_Addresses_Cities">

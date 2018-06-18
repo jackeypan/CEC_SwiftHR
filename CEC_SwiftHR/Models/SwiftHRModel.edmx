@@ -19,7 +19,7 @@
             <PropertyRef Name="CityId" />
           </Key>
           <Property Name="CityId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Name" Type="nchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="ComputerSkills">
           <Key>
@@ -46,7 +46,7 @@
             <PropertyRef Name="DistrictId" />
           </Key>
           <Property Name="DistrictId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Name" Type="nchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
           <Property Name="CityId" Type="uniqueidentifier" />
         </EntityType>
         <EntityType Name="DrivingSkill">
@@ -137,6 +137,14 @@
           </Key>
           <Property Name="LanguageId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Name" Type="nchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Login">
+          <Key>
+            <PropertyRef Name="LoginId" />
+          </Key>
+          <Property Name="LoginId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -350,6 +358,7 @@
           <EntitySet Name="FamilyStatues" EntityType="Self.FamilyStatues" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LanguageAblities" EntityType="Self.LanguageAblities" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Languages" EntityType="Self.Languages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Login" EntityType="Self.Login" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WorkExperiences" EntityType="Self.WorkExperiences" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Addresses_Cities" Association="Self.FK_Addresses_Cities">
@@ -418,7 +427,7 @@
             <PropertyRef Name="CityId" />
           </Key>
           <Property Name="CityId" Type="Guid" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Districts" Relationship="NewEmployeeModel.FK_Districts_Cities" FromRole="City" ToRole="District" />
           <NavigationProperty Name="Addresses" Relationship="NewEmployeeModel.FK_Addresses_Cities" FromRole="City" ToRole="Address" />
         </EntityType>
@@ -449,7 +458,7 @@
             <PropertyRef Name="DistrictId" />
           </Key>
           <Property Name="DistrictId" Type="Guid" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CityId" Type="Guid" />
           <NavigationProperty Name="City" Relationship="NewEmployeeModel.FK_Districts_Cities" FromRole="District" ToRole="City" />
           <NavigationProperty Name="Addresses" Relationship="NewEmployeeModel.FK_Addresses_Districts" FromRole="District" ToRole="Address" />
@@ -769,6 +778,7 @@
             <End Role="Address" EntitySet="Addresses" />
             <End Role="Employee" EntitySet="Employees" />
           </AssociationSet>
+          <EntitySet Name="Logins" EntityType="NewEmployeeModel.Login" />
         </EntityContainer>
         <Association Name="FK_Employees_EmployeeStatuses">
           <End Type="NewEmployeeModel.EmployeeStatus" Role="EmployeeStatus" Multiplicity="0..1" />
@@ -855,6 +865,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Login">
+          <Key>
+            <PropertyRef Name="LoginId" />
+          </Key>
+          <Property Name="LoginId" Type="Guid" Nullable="false" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1028,6 +1046,15 @@
                 <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
                 <ScalarProperty Name="CityId" ColumnName="CityId" />
                 <ScalarProperty Name="AddressId" ColumnName="AddressId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Logins">
+            <EntityTypeMapping TypeName="NewEmployeeModel.Login">
+              <MappingFragment StoreEntitySet="Login">
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="LoginId" ColumnName="LoginId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

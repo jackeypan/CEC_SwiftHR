@@ -10,6 +10,10 @@ namespace CEC_SwiftHR.Controllers
     {
         public ActionResult Index()
         {
+            if (Session["Login"]==null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             return View();
         }
 

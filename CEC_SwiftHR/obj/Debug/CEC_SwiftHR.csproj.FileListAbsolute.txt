@@ -666,7 +666,6 @@ C:\Users\User\Documents\GitHub\CEC_SwiftHR\CEC_SwiftHR\bin\zh-Hant\System.Web.We
 C:\Users\User\Documents\GitHub\CEC_SwiftHR\CEC_SwiftHR\bin\zh-Hant\System.Net.Http.Formatting.resources.dll
 C:\Users\User\Documents\GitHub\CEC_SwiftHR\CEC_SwiftHR\bin\zh-Hant\System.Web.Http.resources.dll
 C:\Users\User\Documents\GitHub\CEC_SwiftHR\CEC_SwiftHR\bin\zh-Hant\System.Web.Http.WebHost.resources.dll
-C:\Users\User\Documents\GitHub\CEC_SwiftHR\CEC_SwiftHR\obj\Debug\CEC_SwiftHR.csprojAssemblyReference.cache
 C:\Users\User\Documents\GitHub\CEC_SwiftHR\CEC_SwiftHR\obj\Debug\CEC_SwiftHR.Properties.Resources.resources
 C:\Users\User\Documents\GitHub\CEC_SwiftHR\CEC_SwiftHR\obj\Debug\CEC_SwiftHR.csproj.GenerateResource.cache
 C:\Users\User\Documents\GitHub\CEC_SwiftHR\CEC_SwiftHR\obj\Debug\CEC_SwiftHR.csproj.CoreCompileInputs.cache
@@ -674,3 +673,4 @@ C:\Users\User\Documents\GitHub\CEC_SwiftHR\CEC_SwiftHR\obj\Debug\CEC_SwiftHR.csp
 C:\Users\User\Documents\GitHub\CEC_SwiftHR\CEC_SwiftHR\obj\Debug\CEC_SwiftHR.dll
 C:\Users\User\Documents\GitHub\CEC_SwiftHR\CEC_SwiftHR\obj\Debug\CEC_SwiftHR.pdb
 C:\Users\User\Documents\GitHub\CEC_SwiftHR\CEC_SwiftHR\obj\Debug\CEC_SwiftHR.Resources.Language.resources
+C:\Users\User\Documents\GitHub\CEC_SwiftHR\CEC_SwiftHR\obj\Debug\CEC_SwiftHR.csprojAssemblyReference.cache
