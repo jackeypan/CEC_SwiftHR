@@ -3,13 +3,17 @@
 @{
     ViewBag.Title = "Index";
 }
-
+<style>
+    .aaa {
+        background-color: yellow;
+    }
+</style>
 
 
 <div class="portlet light bordered">
     <div class="portlet-title">
         <div class="row">
-            <a id="deleteBtn" href="javascript:;" class="btn red pull-right" data-placement="left" data-popout="true" data-toggle="confirmation" data-original-title="確定刪除?">
+            <a id="deleteBtn" href="javascript:;" class="btn red pull-right" data-placement="left" data-popout="true" data-original-title="確定刪除?">
                 <i class="fa fa-trash"></i>
                 Delete
             </a>
@@ -88,7 +92,7 @@
     <script src="~/Content/assets/pages/scripts/table-datatables-managed.min.js" type="text/javascript"></script>
     <!-- END PAGE LEVEL SCRIPTS -->
     <script>
-        $("#deleteBtn").confirmation(
+        @*$("#deleteBtn").confirmation(
             {
                 onConfirm: function (event)
                 {
@@ -119,10 +123,50 @@
             });
 
                     }
-                    
+
 
 
                 }
+            });*@
+    </script>
+    <script>
+        $("#deleteBtn").click(function () {
+            var empIds = [];
+            $("input[type=checkbox]:checked").each(function (index, element) {
+                empIds.push($(element).data("empid"));
             });
+            if (empIds.length == 0) {
+                alert("請先選擇欲刪除之資料列");
+            }
+            else
+            {
+                $("#deleteBtn").confirmation(
+                {
+                    onConfirm: function (event)
+                    {
+                        var empIds = [];
+                        $("input[type=checkbox]:checked").each(function (index, element) {
+                            empIds.push($(element).data("empid"));
+                        });
+
+                        $.ajax({
+                            url: "@Url.Action("Deletes", "Employees")",
+                            data: { ids: empIds },
+                            cache: false,
+                            type: "POST",
+                            success: function (data)
+                            {
+                                window.location.replace('@Url.Action("Index","Employees")');
+                            },
+                            error: function (reponse)
+                            {
+                                debugger;
+                                alert("error : " + reponse);
+                            }
+                        });
+                    }
+                });
+            }
+        });
     </script>
 }
