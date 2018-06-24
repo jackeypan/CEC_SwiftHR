@@ -672,5 +672,8 @@ C:\Users\User\Documents\GitHub\CEC_SwiftHR\CEC_SwiftHR\obj\Debug\CEC_SwiftHR.csp
 C:\Users\User\Documents\GitHub\CEC_SwiftHR\CEC_SwiftHR\obj\Debug\CEC_SwiftHR.csproj.CopyComplete
 C:\Users\User\Documents\GitHub\CEC_SwiftHR\CEC_SwiftHR\obj\Debug\CEC_SwiftHR.dll
 C:\Users\User\Documents\GitHub\CEC_SwiftHR\CEC_SwiftHR\obj\Debug\CEC_SwiftHR.pdb
-C:\Users\User\Documents\GitHub\CEC_SwiftHR\CEC_SwiftHR\obj\Debug\CEC_SwiftHR.Resources.Language.resources
+C:\Users\User\Documents\GitHub\CEC_SwiftHR\CEC_SwiftHR\bin\zh-tw\CEC_SwiftHR.resources.dll
+C:\Users\User\Documents\GitHub\CEC_SwiftHR\CEC_SwiftHR\obj\Debug\CEC_SwiftHR.Content.Texts.RGlobal.resources
+C:\Users\User\Documents\GitHub\CEC_SwiftHR\CEC_SwiftHR\obj\Debug\CEC_SwiftHR.Content.Texts.RGlobal.zh-tw.resources
+C:\Users\User\Documents\GitHub\CEC_SwiftHR\CEC_SwiftHR\obj\Debug\zh-tw\CEC_SwiftHR.resources.dll
 C:\Users\User\Documents\GitHub\CEC_SwiftHR\CEC_SwiftHR\obj\Debug\CEC_SwiftHR.csprojAssemblyReference.cache

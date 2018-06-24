@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CEC_SwiftHR.Models;
+using CEC_SwiftHR.Models.CustomAttributes;
 using CEC_SwiftHR.ViewModel;
 
 namespace CEC_SwiftHR.Controllers
@@ -24,6 +25,7 @@ namespace CEC_SwiftHR.Controllers
             {
                 return RedirectToAction("Index", "Login");
             }
+
             var employees = db.Employees.Include(e => e.EmployeeStatus).Include(e => e.EmployeeStatus1);
             return View(employees.ToList());
         }

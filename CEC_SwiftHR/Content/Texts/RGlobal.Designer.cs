@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CEC_SwiftHR.Resources {
+namespace CEC_SwiftHR.Content.Texts {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace CEC_SwiftHR.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Language {
+    public class RGlobal {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Language() {
+        internal RGlobal() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace CEC_SwiftHR.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CEC_SwiftHR.Resources.Language", typeof(Language).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CEC_SwiftHR.Content.Texts.RGlobal", typeof(RGlobal).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,29 +61,29 @@ namespace CEC_SwiftHR.Resources {
         }
         
         /// <summary>
-        ///   查詢類似 Create 的當地語系化字串。
+        ///   查詢類似 Add Employee 的當地語系化字串。
         /// </summary>
-        public static string Create {
+        public static string AddEmployee {
             get {
-                return ResourceManager.GetString("Create", resourceCulture);
+                return ResourceManager.GetString("AddEmployee", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   查詢類似 Employees 的當地語系化字串。
+        ///   查詢類似 Employee 的當地語系化字串。
         /// </summary>
-        public static string Employees {
+        public static string Employee {
             get {
-                return ResourceManager.GetString("Employees", resourceCulture);
+                return ResourceManager.GetString("Employee", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   查詢類似 Index 的當地語系化字串。
+        ///   查詢類似 New EmployeeList 的當地語系化字串。
         /// </summary>
-        public static string Index {
+        public static string NewEmployeeList {
             get {
-                return ResourceManager.GetString("Index", resourceCulture);
+                return ResourceManager.GetString("NewEmployeeList", resourceCulture);
             }
         }
     }

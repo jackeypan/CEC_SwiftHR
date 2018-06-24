@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CEC_SwiftHR.Models.CustomAttributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,7 +11,7 @@ namespace CEC_SwiftHR.Controllers
     {
         public ActionResult Index()
         {
-            if (Session["Login"]==null)
+            if (Session["Login"] == null)
             {
                 return RedirectToAction("Index", "Login");
             }
