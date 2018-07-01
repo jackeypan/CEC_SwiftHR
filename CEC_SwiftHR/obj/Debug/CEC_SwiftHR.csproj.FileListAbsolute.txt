@@ -676,4 +676,13 @@ C:\Users\User\Documents\GitHub\CEC_SwiftHR\CEC_SwiftHR\bin\zh-tw\CEC_SwiftHR.res
 C:\Users\User\Documents\GitHub\CEC_SwiftHR\CEC_SwiftHR\obj\Debug\CEC_SwiftHR.Content.Texts.RGlobal.resources
 C:\Users\User\Documents\GitHub\CEC_SwiftHR\CEC_SwiftHR\obj\Debug\CEC_SwiftHR.Content.Texts.RGlobal.zh-tw.resources
 C:\Users\User\Documents\GitHub\CEC_SwiftHR\CEC_SwiftHR\obj\Debug\zh-tw\CEC_SwiftHR.resources.dll
+C:\Users\User\Documents\GitHub\CEC_SwiftHR\CEC_SwiftHR\bin\ClosedXML.dll
+C:\Users\User\Documents\GitHub\CEC_SwiftHR\CEC_SwiftHR\bin\DocumentFormat.OpenXml.dll
+C:\Users\User\Documents\GitHub\CEC_SwiftHR\CEC_SwiftHR\bin\ExcelNumberFormat.dll
+C:\Users\User\Documents\GitHub\CEC_SwiftHR\CEC_SwiftHR\bin\FastMember.Signed.dll
+C:\Users\User\Documents\GitHub\CEC_SwiftHR\CEC_SwiftHR\bin\System.IO.FileSystem.Primitives.dll
+C:\Users\User\Documents\GitHub\CEC_SwiftHR\CEC_SwiftHR\bin\System.IO.Packaging.dll
+C:\Users\User\Documents\GitHub\CEC_SwiftHR\CEC_SwiftHR\bin\ClosedXML.xml
+C:\Users\User\Documents\GitHub\CEC_SwiftHR\CEC_SwiftHR\bin\DocumentFormat.OpenXml.xml
+C:\Users\User\Documents\GitHub\CEC_SwiftHR\CEC_SwiftHR\bin\ExcelNumberFormat.xml
 C:\Users\User\Documents\GitHub\CEC_SwiftHR\CEC_SwiftHR\obj\Debug\CEC_SwiftHR.csprojAssemblyReference.cache

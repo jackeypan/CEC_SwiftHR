@@ -10,6 +10,8 @@ using System.Web.Mvc;
 using CEC_SwiftHR.Models;
 using CEC_SwiftHR.Models.CustomAttributes;
 using CEC_SwiftHR.ViewModel;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace CEC_SwiftHR.Controllers
 {
@@ -125,6 +127,15 @@ namespace CEC_SwiftHR.Controllers
                 emp.EmployeeStatusesId = db.EmployeeStatuses.Single(x => x.Name == "Active").EmployeeStatusId;
                 emp.IsDisability = (int)employeeViewModel.IsDisability == 1;
                 emp.IsAboriginal = (int)employeeViewModel.IsAboriginal == 1;
+                //Education
+                Models.Education education = new Models.Education();
+                education.EmployeeId = emp.EmployeeId;
+                education.EducationId = Guid.NewGuid();
+                education.SchoolName = employeeViewModel.Educations.SchoolName;
+                education.Department = employeeViewModel.Educations.Department;
+                education.StartDate = DateTime.Parse(employeeViewModel.Educations.StartDate.ToString());
+                education.EndDate = DateTime.Parse(employeeViewModel.Educations.EndDate.ToString());
+                db.Educations.Add(education);
                 db.Employees.Add(emp);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -148,6 +159,8 @@ namespace CEC_SwiftHR.Controllers
         {
             return db.Districts.ToList();
         }
+   
+
 
 
 
@@ -353,6 +366,48 @@ namespace CEC_SwiftHR.Controllers
             return RedirectToAction("Index");
         }
 
+
+
+
+        [HttpPost]
+        public ActionResult Export()
+        {
+            var exportSpource = this.GetExportData();
+            var dt = JsonConvert.DeserializeObject<DataTable>(exportSpource.ToString());
+
+            var exportFileName = string.Concat(
+                "EmployeeIndex",
+                DateTime.Now.ToString("yyyyMMddHHmmss"),
+                ".xlsx");
+
+            return new ExportExcelResult
+            {
+                SheetName = "EmployeeIndex",
+                FileName = exportFileName,
+                ExportData = dt
+            };
+        }
+
+        private JArray GetExportData()
+        {
+            var query = db.Employees;
+
+            JArray jObjects = new JArray();
+
+            foreach (var item in query)
+            {
+                var jo = new JObject();
+                jo.Add("GID", item.EmpId);
+                jo.Add("姓名", item.EmployeeName+ item.EmployeeNameEn);
+                jo.Add("性別", item.Gender);
+                jo.Add("身分證字號", item.IdCardNum);
+                jo.Add("地址",item.PermanentAddressId);
+                //jo.Add("Town", item.Town);
+                //jo.Add("Sequence", item.Sequence);
+                jObjects.Add(jo);
+            }
+            return jObjects;
+        }
         protected override void Dispose(bool disposing)
         {
       
@@ -362,5 +417,7 @@ namespace CEC_SwiftHR.Controllers
             }
             base.Dispose(disposing);
         }
+     
+        
     }
 }
