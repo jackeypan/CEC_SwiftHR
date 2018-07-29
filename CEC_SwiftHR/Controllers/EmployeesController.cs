@@ -17,7 +17,7 @@ namespace CEC_SwiftHR.Controllers
 {
     public class EmployeesController : Controller
     {
-        
+
         private NewEmployeeEntities db = new NewEmployeeEntities();
 
         // GET: Employees
@@ -50,10 +50,10 @@ namespace CEC_SwiftHR.Controllers
         // GET: Employees/Create
         public ActionResult Create()
         {
-            if (Session["Login"] == null)
-            {
-                return RedirectToAction("Index", "Login");
-            }
+            //if (Session["Login"] == null)
+            //{
+            //    return RedirectToAction("Index", "Login");
+            //}
             ViewBag.EmployeeId = new SelectList(db.EmployeeStatuses, "EmployeeStatusId", "Name");
             ViewBag.EmployeeStatusesId = new SelectList(db.EmployeeStatuses, "EmployeeStatusId", "Name");
             ViewBag.City = new SelectList(db.Cities, "CityId", "Name");
@@ -69,10 +69,10 @@ namespace CEC_SwiftHR.Controllers
         public ActionResult Create(EmployeeViewModel employeeViewModel,
             HttpPostedFileBase PhotoPath)
         {
-            if (Session["Login"] == null)
-            {
-                return RedirectToAction("Index", "Login");
-            }
+            //if (Session["Login"] == null)
+            //{
+            //    return RedirectToAction("Index", "Login");
+            //}
             if (ModelState.IsValid)
             {
                 string strPath = "";
@@ -127,22 +127,38 @@ namespace CEC_SwiftHR.Controllers
                 emp.EmployeeStatusesId = db.EmployeeStatuses.Single(x => x.Name == "Active").EmployeeStatusId;
                 emp.IsDisability = (int)employeeViewModel.IsDisability == 1;
                 emp.IsAboriginal = (int)employeeViewModel.IsAboriginal == 1;
-                //Education
-                Models.Education education = new Models.Education();
-                education.EmployeeId = emp.EmployeeId;
-                education.EducationId = Guid.NewGuid();
-                education.SchoolName = employeeViewModel.Educations.SchoolName;
-                education.Department = employeeViewModel.Educations.Department;
-                education.StartDate = DateTime.Parse(employeeViewModel.Educations.StartDate.ToString());
-                education.EndDate = DateTime.Parse(employeeViewModel.Educations.EndDate.ToString());
-                db.Educations.Add(education);
                 db.Employees.Add(emp);
                 db.SaveChanges();
+
+                //Education
+                //var q = new List<ViewModel.Education>();
+                foreach (var edu in employeeViewModel.Educations)
+                {
+                    var schoolname = edu.SchoolName;
+                    var department = edu.Department;
+                    var dgreee = edu.Drgree;
+                    var sdate = edu.StartDate;
+                    var enddate = edu.EndDate;
+
+                    Models.Education edus = new Models.Education();
+                    edus.EducationId = Guid.NewGuid();
+                    edus.SchoolName = schoolname;
+                    edus.Department = department;
+                    edus.Degree = dgreee;
+                    edus.StartDate = DateTime.Parse(sdate);
+                    edus.EndDate = DateTime.Parse(enddate);
+                    edus.EmployeeId = emp.EmployeeId;
+                    db.Educations.Add(edus);
+                    db.SaveChanges();
+                }
+
+                //emp.Educations.Where(x=>x.EducationId) = Guid.NewGuid();
+
                 return RedirectToAction("Index");
 
             }
 
-            return View(employeeViewModel);
+            return RedirectToAction("Create");
         }
 
 
@@ -159,8 +175,11 @@ namespace CEC_SwiftHR.Controllers
         {
             return db.Districts.ToList();
         }
-   
 
+        //public List<Models.Education> GetAllEdu()
+        //{
+        //    return db.Educations.ToList();
+        //}
 
 
 
@@ -219,7 +238,7 @@ namespace CEC_SwiftHR.Controllers
             empViewModel.EmployeeName = employee.EmployeeName;
             empViewModel.EmployeeNameEn = employee.EmployeeNameEn;
             empViewModel.BirthDate = employee.BirthDate;
-            empViewModel.Gender = employee.Gender == true ? Gender.男 : Gender.女 ;
+            empViewModel.Gender = employee.Gender == true ? Gender.男 : Gender.女;
             var permenentAddress = db.Addresses.Find(employee.PermanentAddressId);
             empViewModel.CitySelectedValue = permenentAddress.CityId.ToString();
             empViewModel.DistrictSelectedValue = permenentAddress.DistrictId.ToString();
@@ -360,7 +379,7 @@ namespace CEC_SwiftHR.Controllers
                 Employee emp = db.Employees.Find(item);
                 db.Employees.Remove(emp);
                 db.SaveChanges();
-               
+
 
             }
             return RedirectToAction("Index");
@@ -398,10 +417,10 @@ namespace CEC_SwiftHR.Controllers
             {
                 var jo = new JObject();
                 jo.Add("GID", item.EmpId);
-                jo.Add("姓名", item.EmployeeName+ item.EmployeeNameEn);
+                jo.Add("姓名", item.EmployeeName + item.EmployeeNameEn);
                 jo.Add("性別", item.Gender);
                 jo.Add("身分證字號", item.IdCardNum);
-                jo.Add("地址",item.PermanentAddressId);
+                jo.Add("地址", item.PermanentAddressId);
                 //jo.Add("Town", item.Town);
                 //jo.Add("Sequence", item.Sequence);
                 jObjects.Add(jo);
@@ -410,14 +429,14 @@ namespace CEC_SwiftHR.Controllers
         }
         protected override void Dispose(bool disposing)
         {
-      
+
             if (disposing)
             {
                 db.Dispose();
             }
             base.Dispose(disposing);
         }
-     
-        
+
+
     }
 }

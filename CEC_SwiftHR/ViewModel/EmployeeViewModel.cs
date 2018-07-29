@@ -74,7 +74,8 @@ namespace CEC_SwiftHR.ViewModel
         public IsDisability IsDisability { get; set; }
         [DisplayName("是否為原住民身分")]
         public IsAboriginal IsAboriginal { get; set; }
-        public Education Educations { get; set; }
+        [DisplayName("學歷")]
+        public List<Education> Educations { get; set; }
 
     }
     public class Education
