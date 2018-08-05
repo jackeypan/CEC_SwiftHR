@@ -80,6 +80,8 @@ namespace CEC_SwiftHR.ViewModel
     }
     public class Education
     {
+        [DisplayName("ID")]
+        public string EducationId { get; set; }
         [DisplayName("學校")]
         public string SchoolName { get; set; }
         [DisplayName("科系")]

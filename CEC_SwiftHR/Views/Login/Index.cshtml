@@ -9,7 +9,7 @@
 </div>
 <!-- END LOGO -->
 <!-- BEGIN LOGIN -->
-
+<input type="button" name="writeCustomer" id="btnWriteCustomer" value="WriteCustomer" />
 
 <div class="content">
     <!-- BEGIN LOGIN FORM -->
@@ -32,7 +32,7 @@
             </div>
             <div class="form-group">
                 <label class="control-label visible-ie8 visible-ie9">Password</label>
-                <input class="form-control form-control-solid placeholder-no-fix" id="password"  type="password" autocomplete="off" placeholder="Password" name="password" />
+                <input class="form-control form-control-solid placeholder-no-fix" id="password" type="password" autocomplete="off" placeholder="Password" name="password" />
             </div>
             <div class="form-actions">
                 <button type="submit" class="btn red btn-block uppercase">Login</button>
@@ -40,15 +40,45 @@
             <span class="label-danger">@TempData["error"]</span>
             <div class="form-actions">
                 <div class="pull-left">
-                    <label class="rememberme mt-checkbox mt-checkbox-outline"> 
-                        <input type="checkbox" name="remember"value="true" /> Remember me
+                    <label class="rememberme mt-checkbox mt-checkbox-outline">
+                        <input type="checkbox" name="remember" value="true" /> Remember me
                         <span></span>
                     </label>
                 </div>
             </div>
         </form>
 
-    <!-- END LOGIN FORM -->
+        <!-- END LOGIN FORM -->
     }
 </div>
 <div class="copyright hide"> 2014 © Metronic. Admin Dashboard Template. </div>
+@section Scripts {
+    <script>
+        // {"CustomerID":"AAAAG","CompanyName":"VVVVVVV","ContactName":"VVVVVV"}
+        var newCustomer = {
+            CustomerID : "AAAAC",
+            CompanyName : "AAAAC",
+            ContactName : "AAAAC"
+        };
+        $("#btnWriteCustomer").click(function () {
+             $.ajax({
+                type: 'POST',
+                 url: "http://localhost:59246/api/customers/",
+                 data: JSON.stringify(newCustomer),
+                dataType: 'json',
+                contentType: "application/json; charset=utf-8",
+                cache: false,
+                 async: true,
+                 success: function (data) {
+                     alert(data);
+                },
+                 error: function (response) {
+                     debugger;
+                    alert("錯誤", "資料匯出錯誤");
+                }
+            });
+
+        });
+
+    </script>
+}

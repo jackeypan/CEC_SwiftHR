@@ -828,3 +828,4 @@ C:\Users\pan80\OneDrive\Desktop\CEC_SwiftHR\CEC_SwiftHR\obj\Debug\zh-tw\CEC_Swif
 C:\Users\pan80\OneDrive\Desktop\CEC_SwiftHR\CEC_SwiftHR\obj\Debug\CEC_SwiftHR.csproj.CopyComplete
 C:\Users\pan80\OneDrive\Desktop\CEC_SwiftHR\CEC_SwiftHR\obj\Debug\CEC_SwiftHR.dll
 C:\Users\pan80\OneDrive\Desktop\CEC_SwiftHR\CEC_SwiftHR\obj\Debug\CEC_SwiftHR.pdb
+C:\Users\pan80\OneDrive\Documents\GitHub\CEC_SwiftHR\CEC_SwiftHR\obj\Debug\CEC_SwiftHR.csprojAssemblyReference.cache

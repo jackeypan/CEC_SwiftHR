@@ -182,33 +182,8 @@ namespace CEC_SwiftHR.Controllers
         //}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         // GET: Employees/Edit/5
-        public ActionResult Edit(Guid? id)
+        public ActionResult Edit(Guid? id,Guid? eid)
         {
             if (Session["Login"] == null)
             {
@@ -219,11 +194,12 @@ namespace CEC_SwiftHR.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Employee employee = db.Employees.Find(id);
+           
+
             if (employee == null)
             {
                 return HttpNotFound();
             }
-
 
             //Address address = new Address();
             //address.AddressId = Guid.NewGuid();
@@ -233,6 +209,7 @@ namespace CEC_SwiftHR.Controllers
             //db.Addresses.Add(address);
 
             EmployeeViewModel empViewModel = new EmployeeViewModel();
+            
             empViewModel.EmployeeId = employee.EmployeeId;
             empViewModel.PhotoPath = employee.PhotoPath;
             empViewModel.EmployeeName = employee.EmployeeName;
@@ -247,6 +224,39 @@ namespace CEC_SwiftHR.Controllers
             empViewModel.ResidentialCitySelectedValue = residentialAddress.CityId.ToString();
             empViewModel.ResidentialDistrictSelectedValue = residentialAddress.DistrictId.ToString();
             empViewModel.ResidentialAddressLine = residentialAddress.AddressLine;
+            empViewModel.EmpId = employee.EmpId;
+
+            //帶出原本的教育資料
+
+            var alledu = db.Educations.Where(x => x.EmployeeId.ToString() == employee.EmployeeId.ToString()).ToList();
+            List<ViewModel.Education> vedu = new List<ViewModel.Education>();
+            foreach (var edus in alledu)
+            {
+                vedu.Add(new ViewModel.Education()
+                {
+                    EducationId=edus.EducationId.ToString(),
+                    SchoolName = edus.SchoolName,
+                    Department = edus.Department,
+                    Drgree = edus.Degree,
+                    StartDate = edus.StartDate.ToString(),
+                    EndDate = edus.EndDate.ToString(),
+
+                });
+            }
+            empViewModel.Educations =vedu;
+            //foreach (var eduv in empViewModel.Educations)
+            //{
+            //    if (eduid.EmployeeId==employee.EmployeeId)
+            //    {
+            //        eduv.SchoolName = eduid.SchoolName;
+            //        eduv.Department = eduid.Department;
+            //        eduv.Drgree = eduid.Degree;
+            //        eduv.StartDate = eduid.StartDate.ToString();
+            //        eduv.EndDate = eduid.EndDate.ToString();
+            //    }             
+
+            //}
+
 
             ViewBag.City = new SelectList(db.Cities, "CityId", "Name");
             ViewBag.District = new SelectList(db.Districts, "DistrictId", "Name");
@@ -283,6 +293,7 @@ namespace CEC_SwiftHR.Controllers
                 emp.EmployeeName = employeeViewModel.EmployeeName;
                 emp.Gender = (int)employeeViewModel.Gender == 1;
                 emp.BirthDate = employeeViewModel.BirthDate;
+                emp.EmpId = employeeViewModel.EmpId;
 
 
                 // Address
@@ -295,8 +306,30 @@ namespace CEC_SwiftHR.Controllers
                 ResidentialAddress.CityId = Guid.Parse(employeeViewModel.ResidentialCitySelectedValue);
                 ResidentialAddress.DistrictId = Guid.Parse(employeeViewModel.ResidentialDistrictSelectedValue);
                 ResidentialAddress.AddressLine = employeeViewModel.ResidentialAddressLine;
+                //Educations
+                
+                foreach (var eduEdit in employeeViewModel.Educations)
+                {
+                    Models.Education edus = db.Educations.Find(Guid.Parse(eduEdit.EducationId));
+                    var schoolname = eduEdit.SchoolName;
+                    var department = eduEdit.Department;
+                    var dgreee = eduEdit.Drgree;
+                    var sdate = eduEdit.StartDate;
+                    var enddate = eduEdit.EndDate;
 
-
+                    //Models.Education eduss = new Models.Education();
+                    //edus.EducationId = Guid.NewGuid();
+                    edus.SchoolName = schoolname;
+                    edus.Department = department;
+                    edus.Degree = dgreee;
+                    edus.StartDate = DateTime.Parse(sdate);
+                    edus.EndDate = DateTime.Parse(enddate);
+                    edus.EmployeeId = emp.EmployeeId;
+                    //db.Educations.Add(edus);
+                    db.SaveChanges();
+         
+                }
+              
                 db.SaveChanges();
 
 
@@ -345,6 +378,7 @@ namespace CEC_SwiftHR.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Employee employee = db.Employees.Find(id);
+            //Models.Education education = db.Educations.Find(educations);
             if (employee == null)
             {
                 return HttpNotFound();
@@ -354,12 +388,41 @@ namespace CEC_SwiftHR.Controllers
 
         // POST: Employees/Delete/5
         [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(Guid id)
+        public ActionResult DeleteConfirmed(Guid id, List<Guid> ids)
         {
             if (Session["Login"] == null)
             {
                 return RedirectToAction("Index", "Login");
             }
+            foreach (var eduid in ids)
+            {
+                Models.Education edu = db.Educations.Find(eduid);
+                db.Educations.Remove(edu);
+                db.SaveChanges();
+            }
+
+            //foreach (var eduEdit in employeeViewModel.Educations)
+            //{
+            //    Models.Education edus = db.Educations.Find(Guid.Parse(eduEdit.EducationId));
+            //    var schoolname = eduEdit.SchoolName;
+            //    var department = eduEdit.Department;
+            //    var dgreee = eduEdit.Drgree;
+            //    var sdate = eduEdit.StartDate;
+            //    var enddate = eduEdit.EndDate;
+
+            //    //Models.Education eduss = new Models.Education();
+            //    //edus.EducationId = Guid.NewGuid();
+            //    //edus.SchoolName = schoolname;
+            //    //edus.Department = department;
+            //    //edus.Degree = dgreee;
+            //    //edus.StartDate = DateTime.Parse(sdate);
+            //    //edus.EndDate = DateTime.Parse(enddate);
+            //    //edus.EmployeeId = employee.EmployeeId;
+            //    //db.Educations.Add(edus);
+            //    db.Educations.Remove(edus);
+            //    db.SaveChanges();
+
+            //}
             Employee employee = db.Employees.Find(id);
             db.Employees.Remove(employee);
             db.SaveChanges();

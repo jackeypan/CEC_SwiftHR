@@ -223,7 +223,7 @@
                 @Html.ValidationMessageFor(model => model.IsAboriginal, "", new { @class = "text-danger" })
             </div>
         </div>
-
+        @Html.Partial("_EducationPartialView")
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />
@@ -254,20 +254,33 @@
             {
                 onConfirm: function (event)
                 {
-                    $.ajax({
-                    url:"@Url.Action("Delete", "Employees")",
-                    data: { id: "@Model.EmployeeId" },
-                    cache: false,
-                    type: "POST",
-                    success: function (data) {
+                    var eduIds = [];
+                    var inputs = $(".EduIdInput");
 
-                        window.location.replace('@Url.Action("Index","Employees")');
-                    },
-                    error: function (reponse) {
-                        debugger;
-                        alert("error : " + reponse);
+                    for (var i = 0; i < inputs.length; i++)
+                    {
+                        eduIds.push(inputs[i].value);
                     }
-            });
+
+                    var dataParams = {
+                        id: "@Model.EmployeeId",
+                        ids: eduIds
+                    };
+
+                    $.ajax({
+                        url:"@Url.Action("Delete", "Employees")",
+                        data: dataParams,
+                        cache: false,
+                        type: "POST",
+                        success: function (data) {
+
+                            window.location.replace('@Url.Action("Index","Employees")');
+                        },
+                        error: function (reponse) {
+                            debugger;
+                            alert("error : " + reponse);
+                        }
+                    });
                 }
             });
         $("#PhotoPath").change(function () {
@@ -339,5 +352,24 @@
         });
 
     </script>
+    <script>
+        var rowNumber = 0;
+        $(document).ready(function () {
 
+            @foreach (var edu in Model.Educations)
+            {
+                <text>
+                    $('#DegreeTBody').append('<tr>' +
+                    '<td style="display:none"><input type="hidden" class="form-control EduIdInput" name="Educations[' + rowNumber + '].EducationId" value="@edu.EducationId" /></td>'+
+                    '<td> <input type="text" class="form-control" name="Educations[' + rowNumber + '].SchoolName" value="@edu.SchoolName" /> </td>' +
+                    '<td> <input type="text" class="form-control" name="Educations[' + rowNumber + '].Department" value="@edu.Department"> </td>' +
+                    '<td> <input type="text" class="form-control" name="Educations[' + rowNumber + '].Drgree"  value="@edu.Drgree"> </td>' +
+                    '<td> <input type="text" class="form-control" name="Educations[' + rowNumber + '].StartDate"  value="@edu.StartDate"> </td>' +
+                    '<td> <input type="text" class="form-control" name="Educations[' + rowNumber + '].EndDate"  value="@edu.EndDate"> </td>' +
+                    '</tr>');
+                    rowNumber++;
+                </text>
+            }
+        });
+    </script>
 }
